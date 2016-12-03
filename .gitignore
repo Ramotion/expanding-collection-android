@@ -1,0 +1,14 @@
+# IDEA
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+# Android
+local.properties
+
+# Gradle
+app/build/
+build/
+.gradle/
