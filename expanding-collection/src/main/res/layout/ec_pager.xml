@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ramotion.expandingcollection.views.ECPagerContainer xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pager_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:background="@color/transparent"
+    android:clipChildren="false">
+
+    <com.ramotion.expandingcollection.views.ECPager
+        android:id="@+id/pager_view"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/transparent" />
+
+</com.ramotion.expandingcollection.views.ECPagerContainer>
