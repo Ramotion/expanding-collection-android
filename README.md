@@ -2,7 +2,7 @@
 
 ## Licence
 ​
-Folding cell is released under the MIT license.
+Expanding Collection is released under the MIT license.
 See [LICENSE](./LICENSE.md) for details.
 ​
 ## About
