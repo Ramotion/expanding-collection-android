@@ -1,14 +1,35 @@
-# IDEA
-.idea/
-.idea_modules/
+# Java compiled classes #
+*.class
+
+# Package Files #
+*.apk
+*.ap_
+
+# IDEA Project files #
+*.iws
 *.iml
 *.ipr
-*.iws
+.idea/
 
-# Android
+# Build directory #
+target/
+build/
+
+# Generated files #
+bin/
+gen/
+
+# Local props file #
 local.properties
 
-# Gradle
-app/build/
-build/
-.gradle/
+# Gradle cache #
+.gradle
+
+# OSX files #
+.DS_Store
+
+# NDK #
+obj/
+
+# files for the dex VM #
+*.dex
