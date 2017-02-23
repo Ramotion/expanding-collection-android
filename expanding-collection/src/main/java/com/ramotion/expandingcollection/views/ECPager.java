@@ -13,10 +13,10 @@ import android.widget.FrameLayout;
 
 import com.ramotion.expandingcollection.ECCardData;
 import com.ramotion.expandingcollection.ECPagerViewAdapter;
-import com.ramotion.expandingcollection.utils.AlphaScalePageTransformer;
 
 public class ECPager extends ViewPager {
 
+    private int position = 0;
     private boolean pagingEnabled = true;
     private boolean animationInProgress;
 
@@ -31,8 +31,7 @@ public class ECPager extends ViewPager {
     }
 
     private void init() {
-        this.setOffscreenPageLimit(2);
-        this.setPageTransformer(false, new AlphaScalePageTransformer());
+        this.setOffscreenPageLimit(3);
     }
 
     @Override
@@ -108,5 +107,18 @@ public class ECPager extends ViewPager {
 
         pagerWidthAnimation.start();
         pagerHeightAnimation.start();
+    }
+
+    @Override
+    protected void onPageScrolled(int position, float offset, int offsetPixels) {
+        super.onPageScrolled(position, offset, offsetPixels);
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

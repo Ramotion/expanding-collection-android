@@ -1,5 +1,7 @@
 package com.ramotion.expandingcollection.views;
 
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
@@ -7,7 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+
+import com.ramotion.expandingcollection.utils.AnimationListener;
 
 /**
  * Pager container for simulate needed pager behavior - show parts of nearby pager elements
@@ -84,7 +92,6 @@ public class ECPagerContainer extends FrameLayout implements ViewPager.OnPageCha
 
     @Override
     public void onPageSelected(int position) {
-//        Toast.makeText(this.getContext(), "Selected " + position + " element", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -92,4 +99,21 @@ public class ECPagerContainer extends FrameLayout implements ViewPager.OnPageCha
         needsRedraw = (state != ViewPager.SCROLL_STATE_IDLE);
     }
 
+    public void animateTopMargin(int value, int duration, int delay) {
+        final RelativeLayout.LayoutParams containerLayoutParams = (RelativeLayout.LayoutParams) this.getLayoutParams();
+        ValueAnimator marginAnimation = new ValueAnimator();
+        marginAnimation.setInterpolator(new DecelerateInterpolator());
+        marginAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                containerLayoutParams.setMargins(0, (int) animation.getAnimatedValue(), 0, 0);
+                ECPagerContainer.this.setLayoutParams(containerLayoutParams);
+            }
+        });
+
+        marginAnimation.setIntValues(containerLayoutParams.topMargin, value);
+        marginAnimation.setDuration(duration);
+        marginAnimation.setStartDelay(delay);
+        marginAnimation.start();
+    }
 }

@@ -2,6 +2,7 @@ package com.ramotion.expandingcollection.examples.simple;
 
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -32,12 +33,9 @@ public class MainActivity extends FragmentActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point displaySize = new Point();
         display.getSize(displaySize);
-
         setContentView(R.layout.activity_main);
-
         // Prepare example dataset with cute penguins =)
         List<ECCardData> exampleDataSet = getExampleDataSet(displaySize.x, displaySize.y);
-
         // Create adapter for pager
         ECPagerViewAdapter adapter = new ECPagerViewAdapter(this, exampleDataSet) {
             @Override
@@ -45,14 +43,13 @@ public class MainActivity extends FragmentActivity {
                 mInflater.inflate(R.layout.simple_list, rootCardContentView);
             }
         };
-
         // Get our view
         ECView ecView = (ECView) findViewById(R.id.ec_view);
-
         // Tune it with fluent api
         ecView
                 .withCardSize(500, 400)
-                .withCardHeaderHeight(300, 200)
+                .withCardHeaderHeight(300, 300)
+                .withOpenedCardMargins(0, 0)
                 .withPagerAdapter(adapter);
     }
 

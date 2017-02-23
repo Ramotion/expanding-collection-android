@@ -20,7 +20,6 @@ import java.util.List;
 
 import ramotion.com.expandingcollection.R;
 
-// TODO: Refactor class
 public abstract class ECPagerViewAdapter extends PagerAdapter {
     public static final String TAG = "ecview";
 
@@ -46,7 +45,7 @@ public abstract class ECPagerViewAdapter extends PagerAdapter {
 
         pagerCard.setWidth(ecRootView.getCardWidth());
 
-        cardHeader.setHeadImageDrawable(dataset.get(position).getBgImageDrawable());
+        cardHeader.setHeadImageDrawable(dataset.get(position).getHeadBgImageDrawable());
         cardHeader.setHeadTitleText(dataset.get(position).getHeadTitle());
         cardHeader.setHeight(ecRootView.getCardHeaderHeightNormal());
 
@@ -56,14 +55,16 @@ public abstract class ECPagerViewAdapter extends PagerAdapter {
                 if (pager.isAnimationInProgress()) return;
                 pager.setAnimationInProgress(true);
 
-                int openedCardHorizontalMargin = 50;
-                int openedCardVerticalMargin = 50;
-
                 if (pager.isPagingEnabled()) {
                     pager.setPagingEnabled(false);
-                    pager.animateSize(pagerContainer.getWidth() - openedCardHorizontalMargin, ecRootView.getHeight() - openedCardVerticalMargin, 250, 200);
+
+                    int expandedCardWidth = pagerContainer.getWidth() - ecRootView.getOpenedCardHorizontalMargin();
+                    int expandedCardHeight = ecRootView.getHeight() - ecRootView.getOpenedCardVerticalMargin();
+
+                    pagerContainer.animateTopMargin(0, 250, 200);
+                    pager.animateSize(expandedCardWidth, expandedCardHeight, 250, 200);
                     cardHeader.animateHeight(ecRootView.getCardHeaderHeightExpanded(), 200, 200);
-                    pagerCard.animateSize(pagerContainer.getWidth() - openedCardHorizontalMargin, ecRootView.getHeight() - openedCardVerticalMargin, 300, 200, new AnimationListener() {
+                    pagerCard.animateSize(expandedCardWidth, expandedCardHeight, 300, 200, new AnimationListener() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             pager.setAnimationInProgress(false);
@@ -71,6 +72,7 @@ public abstract class ECPagerViewAdapter extends PagerAdapter {
                         }
                     });
                 } else {
+                    pagerContainer.animateTopMargin(500, 250, 0);
                     pager.animateSize(ecRootView.getCardWidth(), ecRootView.getCardHeight(), 250, 0);
                     cardHeader.animateHeight(ecRootView.getCardHeaderHeightNormal(), 200, 0);
                     pagerCard.animateSize(ecRootView.getCardWidth(), ecRootView.getCardHeight(), 300, 0, new AnimationListener() {

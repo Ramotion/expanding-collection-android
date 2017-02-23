@@ -6,31 +6,36 @@ import com.ramotion.expandingcollection.ECCardData;
 
 public class PagerCardDataHolder implements ECCardData {
 
-    private String headerTitle;
-    private Drawable bgImageDrawable;
+    private String headTitle;
+    private Drawable headBgImageDrawable;
 
     public PagerCardDataHolder() {
     }
 
-    public PagerCardDataHolder(String headerTitle, Drawable bgImageDrawable) {
-        this.headerTitle = headerTitle;
-        this.bgImageDrawable = bgImageDrawable;
+    public PagerCardDataHolder(String headTitle, Drawable bgImageDrawable) {
+        this.headTitle = headTitle;
+        this.headBgImageDrawable = bgImageDrawable;
     }
 
     public String getHeadTitle() {
-        return headerTitle;
+        return headTitle;
     }
 
-    public void setHeaderTitle(String headerTitle) {
-        this.headerTitle = headerTitle;
+    public void setHeadTitle(String headTitle) {
+        this.headTitle = headTitle;
     }
 
-    public Drawable getBgImageDrawable() {
-        return bgImageDrawable;
+    public Drawable getMainBgImageDrawable() {
+        return headBgImageDrawable;
+    }
+
+    @Override
+    public Drawable getHeadBgImageDrawable() {
+        return headBgImageDrawable;
     }
 
     public void setBgImageDrawable(Drawable bgImageDrawable) {
-        this.bgImageDrawable = bgImageDrawable;
+        this.headBgImageDrawable = bgImageDrawable;
     }
 
 }

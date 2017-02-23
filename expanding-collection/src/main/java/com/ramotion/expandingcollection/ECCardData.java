@@ -6,6 +6,7 @@ public interface ECCardData {
 
     String getHeadTitle();
 
-    Drawable getBgImageDrawable();
+    Drawable getMainBgImageDrawable();
 
+    Drawable getHeadBgImageDrawable();
 }

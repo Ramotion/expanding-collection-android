@@ -2,14 +2,26 @@ package com.ramotion.expandingcollection;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ViewSwitcher;
 
+import com.ramotion.expandingcollection.utils.AlphaScalePageTransformer;
+import com.ramotion.expandingcollection.utils.ViewPagerOnPageChangeListener;
 import com.ramotion.expandingcollection.views.ECPager;
+import com.ramotion.expandingcollection.views.ECPagerBackgroundImageSwitcher;
+import com.ramotion.expandingcollection.views.ECPagerContainer;
 
 import java.util.List;
 
@@ -23,9 +35,13 @@ public class ECView extends RelativeLayout {
     private Integer cardHeaderHeightNormal;
     private Integer cardHeaderHeightExpanded;
 
-    private LayoutInflater inflater;
+    private int widthBackgroundImageGapPercent = 12;
+
     private ECPager pagerView;
-    private ImageView bgImageView;
+    private ECPagerBackgroundImageSwitcher bgImageSwitcher;
+
+    private int openedCardHorizontalMargin;
+    private int openedCardVerticalMargin;
 
     public ECView(Context context) {
         super(context);
@@ -42,36 +58,82 @@ public class ECView extends RelativeLayout {
         inflateAndInitialize(context);
     }
 
-    private void inflateAndInitialize(Context applicationContext) {
-        inflater = (LayoutInflater) applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    private void inflateAndInitialize(final Context appContext) {
+        LayoutInflater inflater = (LayoutInflater) appContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.ec_pager, this, true);
+
+        ECPagerContainer pagerContainer = (ECPagerContainer) findViewById(R.id.pager_container);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) pagerContainer.getLayoutParams();
+        layoutParams.topMargin = 500;
+        pagerContainer.setLayoutParams(layoutParams);
+
+        RelativeLayout.LayoutParams testViewLayoutparams = new LayoutParams(200, 200);
+        testViewLayoutparams.setMargins(100, 100, 100, 100);
+        ImageView testView = new ImageView(appContext);
+        testView.setLayoutParams(testViewLayoutparams);
+        testView.setBackgroundColor(Color.BLACK);
+        this.addView(testView, 0);
 
         pagerView = (ECPager) findViewById(R.id.pager_view);
 
-        //TODO: Animate background changes
-        RelativeLayout.LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        bgImageView = new ImageView(applicationContext);
-        bgImageView.setBackgroundColor(Color.YELLOW);
-        bgImageView.setLayoutParams(layoutParams);
-        bgImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        this.addView(bgImageView, 0, layoutParams);
+        bgImageSwitcher = new ECPagerBackgroundImageSwitcher(appContext);
+        this.addView(bgImageSwitcher, 0, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        pagerView.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        final DisplayMetrics displayMetrics = appContext.getResources().getDisplayMetrics();
 
-            }
+        final int bgImageGap = (displayMetrics.widthPixels / 100) * widthBackgroundImageGapPercent;
+        final int bgImageWidth = displayMetrics.widthPixels + bgImageGap * 2;
 
-            @Override
-            public void onPageSelected(int position) {
-                bgImageView.setImageDrawable(pagerView.getDataFromAdapterDataset(position).getBgImageDrawable());
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+        bgImageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            public View makeView() {
+                ImageView myView = new ImageView(appContext);
+                myView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                myView.setLayoutParams(new FrameLayout.LayoutParams(bgImageWidth, FrameLayout.LayoutParams.MATCH_PARENT));
+                myView.setTranslationX(-bgImageGap);
+                return myView;
             }
         });
+
+        pagerView.addOnPageChangeListener(new ViewPagerOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                bgImageSwitcher.setReverseDrawOrder(bgImageSwitcher.getDisplayedChild() == 1);
+
+                if (pagerView.getPosition() < position) {
+                    bgImageSwitcher.setInAnimation(createBgImageInAnimation(bgImageGap, 0, 500, 400));
+                    bgImageSwitcher.setOutAnimation(createBgImageOutAnimation(0, -bgImageGap, 500));
+                }
+                if (pagerView.getPosition() > position) {
+                    bgImageSwitcher.setInAnimation(createBgImageInAnimation(-bgImageGap, 0, 500, 400));
+                    bgImageSwitcher.setOutAnimation(createBgImageOutAnimation(0, bgImageGap, 500));
+                }
+                pagerView.setPosition(position);
+                bgImageSwitcher.setImageDrawable(pagerView.getDataFromAdapterDataset(position).getMainBgImageDrawable());
+            }
+        });
+
+        pagerView.setPageTransformer(false, new AlphaScalePageTransformer());
+    }
+
+    private Animation createBgImageInAnimation(int fromX, int toX, int transitionDuration, int alphaDuration) {
+        TranslateAnimation ta = new TranslateAnimation(fromX, toX, 0, 0);
+        ta.setDuration(transitionDuration);
+
+        AlphaAnimation alpha = new AlphaAnimation(0F, 1F);
+        alpha.setDuration(alphaDuration);
+
+        AnimationSet set = new AnimationSet(true);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.addAnimation(ta);
+        set.addAnimation(alpha);
+        return set;
+    }
+
+    private Animation createBgImageOutAnimation(int fromX, int toX, int transitionDuration) {
+        TranslateAnimation ta = new TranslateAnimation(fromX, toX, 0, 0);
+        ta.setDuration(transitionDuration);
+        ta.setInterpolator(new DecelerateInterpolator());
+        return ta;
     }
 
     public ECView withCardSize(int cardWidth, int cardHeight) {
@@ -90,8 +152,15 @@ public class ECView extends RelativeLayout {
     public ECView withPagerAdapter(ECPagerViewAdapter adapter) {
         this.pagerView.setAdapter(adapter);
         List<ECCardData> dataset = adapter.getDataset();
-        if (dataset != null && dataset.size() > 1)
-            bgImageView.setImageDrawable(dataset.get(0).getBgImageDrawable());
+        if (dataset != null && dataset.size() > 1) {
+            bgImageSwitcher.setImageDrawable(dataset.get(0).getMainBgImageDrawable());
+        }
+        return this;
+    }
+
+    public ECView withOpenedCardMargins(int horizontalMargin, int verticalMargin) {
+        this.openedCardHorizontalMargin = horizontalMargin;
+        this.openedCardVerticalMargin = verticalMargin;
         return this;
     }
 
@@ -109,6 +178,14 @@ public class ECView extends RelativeLayout {
 
     public int getCardHeaderHeightExpanded() {
         return cardHeaderHeightExpanded;
+    }
+
+    public int getOpenedCardHorizontalMargin() {
+        return openedCardHorizontalMargin;
+    }
+
+    public int getOpenedCardVerticalMargin() {
+        return openedCardVerticalMargin;
     }
 }
 
