@@ -1,4 +1,4 @@
-package com.ramotion.expandingcollection.views;
+package com.ramotion.expandingcollection;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

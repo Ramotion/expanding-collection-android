@@ -1,4 +1,4 @@
-package com.ramotion.expandingcollection.views;
+package com.ramotion.expandingcollection;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

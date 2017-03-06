@@ -1,4 +1,4 @@
-package com.ramotion.expandingcollection.utils;
+package com.ramotion.expandingcollection;
 
 import android.animation.Animator;
 

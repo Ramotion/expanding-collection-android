@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.ramotion.expandingcollection.ECCardData;
 import com.ramotion.expandingcollection.ECPagerAdapter;
-import com.ramotion.expandingcollection.views.ECBackgroundView;
-import com.ramotion.expandingcollection.views.ECPagerView;
+import com.ramotion.expandingcollection.ECBackgroundView;
+import com.ramotion.expandingcollection.ECPagerView;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -58,7 +58,6 @@ public class MainActivity extends FragmentActivity {
         ecPagerView
                 .withCardSize(500, 400)             //required
                 .withCardHeaderHeight(300, 300)     //required
-                .withOpenedCardMargins(0, 0)
                 .withBackgroundImageSwitcher(bgView)
                 .withPagerAdapter(adapter);
     }

@@ -1,4 +1,4 @@
-package com.ramotion.expandingcollection.views;
+package com.ramotion.expandingcollection;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -10,10 +10,6 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
-
-import com.ramotion.expandingcollection.ECCardData;
-import com.ramotion.expandingcollection.ECPagerAdapter;
-import com.ramotion.expandingcollection.utils.AnimationListener;
 
 public class ECPager extends ViewPager {
     public static final String TAG = "ecview";

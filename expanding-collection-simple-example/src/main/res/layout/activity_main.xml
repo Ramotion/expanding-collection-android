@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     tools:context="com.ramotion.expandingcollection.examples.simple.MainActivity">
 
-    <com.ramotion.expandingcollection.views.ECBackgroundView
+    <com.ramotion.expandingcollection.ECBackgroundView
         android:id="@+id/ec_bg_switcher_element"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.ramotion.expandingcollection.views.ECPagerView
+    <com.ramotion.expandingcollection.ECPagerView
         android:id="@+id/ec_pager_element"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

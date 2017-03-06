@@ -1,4 +1,4 @@
-package com.ramotion.expandingcollection.views;
+package com.ramotion.expandingcollection;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -14,10 +14,6 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-
-import com.ramotion.expandingcollection.ECCardData;
-import com.ramotion.expandingcollection.ECPagerAdapter;
-import com.ramotion.expandingcollection.utils.AlphaScalePageTransformer;
 
 import java.util.List;
 
@@ -38,8 +34,6 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
     private Integer cardHeight;
     private Integer cardHeaderHeightNormal;
     private Integer cardHeaderHeightExpanded;
-    private int openedCardHorizontalMargin;
-    private int openedCardVerticalMargin;
 
     private int nextTopMargin = 0;
 
@@ -188,12 +182,6 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         return this;
     }
 
-    public ECPagerView withOpenedCardMargins(int horizontalMargin, int verticalMargin) {
-        this.openedCardHorizontalMargin = horizontalMargin;
-        this.openedCardVerticalMargin = verticalMargin;
-        return this;
-    }
-
     public int getCardWidth() {
         return cardWidth;
     }
@@ -208,14 +196,6 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
 
     public int getCardHeaderHeightExpanded() {
         return cardHeaderHeightExpanded;
-    }
-
-    public int getOpenedCardHorizontalMargin() {
-        return openedCardHorizontalMargin;
-    }
-
-    public int getOpenedCardVerticalMargin() {
-        return openedCardVerticalMargin;
     }
 
     public boolean expandCurrentCard() {

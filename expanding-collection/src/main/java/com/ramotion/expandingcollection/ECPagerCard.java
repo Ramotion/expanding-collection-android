@@ -1,12 +1,10 @@
-package com.ramotion.expandingcollection.views;
+package com.ramotion.expandingcollection;
 
 import android.animation.Animator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import com.ramotion.expandingcollection.utils.AnimationListener;
 
 public class ECPagerCard extends FrameLayout {
 
@@ -50,9 +48,9 @@ public class ECPagerCard extends FrameLayout {
 
         pager.disablePaging();
 
-        ViewGroup rootElement = (ViewGroup) pagerView.getParent();
-        int expandedCardWidth = rootElement.getWidth() - pagerView.getOpenedCardHorizontalMargin();
-        int expandedCardHeight = rootElement.getHeight() - pagerView.getOpenedCardVerticalMargin();
+        ViewGroup pagerParent = (ViewGroup) pagerView.getParent();
+        int expandedCardWidth = pagerParent.getWidth();
+        int expandedCardHeight = pagerParent.getHeight();
 
         AnimationListener onAnimationEnd = new AnimationListener() {
             @Override

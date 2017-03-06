@@ -6,12 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ramotion.expandingcollection.views.ECPagerCard;
-import com.ramotion.expandingcollection.views.ECPager;
-import com.ramotion.expandingcollection.views.ECPagerCardBody;
-import com.ramotion.expandingcollection.views.ECPagerCardHead;
-import com.ramotion.expandingcollection.views.ECPagerView;
-
 import java.util.List;
 
 import ramotion.com.expandingcollection.R;

@@ -1,17 +1,14 @@
-package com.ramotion.expandingcollection.views;
+package com.ramotion.expandingcollection;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import ramotion.com.expandingcollection.R;
 
 public class ECPagerCardHead extends FrameLayout {
 
@@ -74,6 +71,5 @@ public class ECPagerCardHead extends FrameLayout {
     public void setHeight(int height) {
         this.getLayoutParams().height = height;
     }
-
 
 }
