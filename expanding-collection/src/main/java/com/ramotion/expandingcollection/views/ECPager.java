@@ -12,13 +12,15 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 import com.ramotion.expandingcollection.ECCardData;
-import com.ramotion.expandingcollection.ECPagerViewAdapter;
+import com.ramotion.expandingcollection.ECPagerAdapter;
+import com.ramotion.expandingcollection.utils.AnimationListener;
 
 public class ECPager extends ViewPager {
+    public static final String TAG = "ecview";
 
-    private int position = 0;
+    private int currentPosition = 0;
+
     private boolean pagingEnabled = true;
-    private boolean animationInProgress;
 
     public ECPager(Context context) {
         super(context);
@@ -51,23 +53,15 @@ public class ECPager extends ViewPager {
     }
 
     public ECCardData getDataFromAdapterDataset(int position) {
-        return ((ECPagerViewAdapter) this.getAdapter()).getDataset().get(position);
+        return ((ECPagerAdapter) this.getAdapter()).getDataset().get(position);
     }
 
-    public void setPagingEnabled(boolean b) {
-        this.pagingEnabled = b;
+    public void enablePaging() {
+        this.pagingEnabled = true;
     }
 
-    public boolean isPagingEnabled() {
-        return pagingEnabled;
-    }
-
-    public boolean isAnimationInProgress() {
-        return animationInProgress;
-    }
-
-    public void setAnimationInProgress(boolean animationInProgress) {
-        this.animationInProgress = animationInProgress;
+    public void disablePaging() {
+        this.pagingEnabled = false;
     }
 
     @Override
@@ -75,37 +69,46 @@ public class ECPager extends ViewPager {
         super.setAdapter(adapter);
     }
 
-    public void animateSize(int width, int height, int duration, int heightAnimationDelay) {
-        final ViewGroup.LayoutParams pagerLayoutParams = this.getLayoutParams();
-
+    public void animateWidth(int targetWidth, int duration, int startDelay, AnimationListener onAnimationEnd) {
         ValueAnimator pagerWidthAnimation = new ValueAnimator();
         pagerWidthAnimation.setInterpolator(new AccelerateInterpolator());
         pagerWidthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
+                ViewGroup.LayoutParams pagerLayoutParams = getLayoutParams();
                 pagerLayoutParams.width = (int) animation.getAnimatedValue();
-                ECPager.this.setLayoutParams(pagerLayoutParams);
+                setLayoutParams(pagerLayoutParams);
             }
         });
 
+        pagerWidthAnimation.setIntValues(getWidth(), targetWidth);
+
+        pagerWidthAnimation.setStartDelay(startDelay);
+        pagerWidthAnimation.setDuration(duration);
+        if (onAnimationEnd != null)
+            pagerWidthAnimation.addListener(onAnimationEnd);
+        pagerWidthAnimation.start();
+    }
+
+    public void animateHeight(int targetHeight, int duration, int startDelay, AnimationListener onAnimationEnd) {
         ValueAnimator pagerHeightAnimation = new ValueAnimator();
         pagerHeightAnimation.setInterpolator(new DecelerateInterpolator());
         pagerHeightAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
+                ViewGroup.LayoutParams pagerLayoutParams = getLayoutParams();
                 pagerLayoutParams.height = (int) animation.getAnimatedValue();
-                ECPager.this.setLayoutParams(pagerLayoutParams);
+                setLayoutParams(pagerLayoutParams);
             }
         });
 
-        pagerWidthAnimation.setIntValues(pagerLayoutParams.width, width);
-        pagerHeightAnimation.setIntValues(pagerLayoutParams.height, height);
+        pagerHeightAnimation.setIntValues(getHeight(), targetHeight);
 
-        pagerWidthAnimation.setDuration(duration);
         pagerHeightAnimation.setDuration(duration);
-        pagerHeightAnimation.setStartDelay(heightAnimationDelay);
+        pagerHeightAnimation.setStartDelay(startDelay);
+        if (onAnimationEnd != null)
+            pagerHeightAnimation.addListener(onAnimationEnd);
 
-        pagerWidthAnimation.start();
         pagerHeightAnimation.start();
     }
 
@@ -114,11 +117,26 @@ public class ECPager extends ViewPager {
         super.onPageScrolled(position, offset, offsetPixels);
     }
 
-    public int getPosition() {
-        return position;
+    public int getCurrentPosition() {
+        return currentPosition;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
+    public boolean expandCurrentCard() {
+        ECPagerAdapter adapter = (ECPagerAdapter) getAdapter();
+        return adapter.getActiveCard().expand();
+    }
+
+    public boolean collapseCurrentCard() {
+        ECPagerAdapter adapter = (ECPagerAdapter) getAdapter();
+        return adapter.getActiveCard().collapse();
+    }
+
+    public boolean toggleCurrentCard() {
+        ECPagerAdapter adapter = (ECPagerAdapter) getAdapter();
+        return adapter.getActiveCard().toggle();
     }
 }

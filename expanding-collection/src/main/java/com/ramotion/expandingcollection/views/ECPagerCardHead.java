@@ -32,6 +32,7 @@ public class ECPagerCardHead extends FrameLayout {
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         try {
             headImageView = (ImageView) getChildAt(0);
             headTitleTextView = (TextView) getChildAt(1);

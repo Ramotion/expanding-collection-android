@@ -1,52 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.ramotion.expandingcollection.views.ECPagerCardContainer xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ec_card_container"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="@color/transparent"
-    android:gravity="center|top">
+<com.ramotion.expandingcollection.views.ECPagerCard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.ramotion.expandingcollection.views.ECPagerCard
-        android:id="@+id/ec_card"
-        android:layout_width="66dp"
+    <com.ramotion.expandingcollection.views.ECPagerCardContent
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/transparent"
-        android:gravity="top"
-        android:orientation="vertical">
+        android:layout_gravity="center_horizontal">
 
-        <com.ramotion.expandingcollection.views.ECPagerCardHead
-            android:id="@+id/ec_card_head"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@color/colorCardHeader">
-
-            <ImageView
-                android:id="@+id/ec_card_head_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="card_head_image"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:id="@+id/ec_card_head_title"
-                style="@style/ec_card_title_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textAlignment="center" />
-
-        </com.ramotion.expandingcollection.views.ECPagerCardHead>
-
-        <com.ramotion.expandingcollection.views.ECPagerCardBody
-            android:id="@+id/ec_card_body"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorCardContent">
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
 
-        </com.ramotion.expandingcollection.views.ECPagerCardBody>
+            <com.ramotion.expandingcollection.views.ECPagerCardHead
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </com.ramotion.expandingcollection.views.ECPagerCard>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="card_head_image"
+                    android:scaleType="centerCrop" />
 
-</com.ramotion.expandingcollection.views.ECPagerCardContainer>
+                <TextView
+                    style="@style/ec_card_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center" />
+
+            </com.ramotion.expandingcollection.views.ECPagerCardHead>
+
+            <com.ramotion.expandingcollection.views.ECPagerCardBody
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.ramotion.expandingcollection.views.ECPagerCardBody>
+
+        </LinearLayout>
+    </com.ramotion.expandingcollection.views.ECPagerCardContent>
+
+</com.ramotion.expandingcollection.views.ECPagerCard>
+

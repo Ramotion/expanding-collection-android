@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ramotion.expandingcollection.ECView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ec_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ramotion.expandingcollection.examples.simple.MainActivity" />
+    tools:context="com.ramotion.expandingcollection.examples.simple.MainActivity">
+
+    <com.ramotion.expandingcollection.views.ECBackgroundView
+        android:id="@+id/ec_bg_switcher_element"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.ramotion.expandingcollection.views.ECPagerView
+        android:id="@+id/ec_pager_element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp" />
+
+</RelativeLayout>
 

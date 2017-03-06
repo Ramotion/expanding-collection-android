@@ -1,11 +1,7 @@
 package com.ramotion.expandingcollection.utils;
 
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-
-import com.ramotion.expandingcollection.ECView;
 
 public class AlphaScalePageTransformer implements ViewPager.PageTransformer {
 
