@@ -4,8 +4,6 @@ import android.graphics.drawable.Drawable;
 
 public interface ECCardData {
 
-    String getHeadTitle();
-
     Drawable getMainBgImageDrawable();
 
     Drawable getHeadBgImageDrawable();

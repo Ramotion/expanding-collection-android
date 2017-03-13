@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.ramotion.expandingcollection.ECPagerView
+    <com.ramotion.expandingcollection.ECPagerView xmlns:ec="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ec_pager_element"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

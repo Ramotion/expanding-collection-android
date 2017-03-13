@@ -2,6 +2,7 @@ package com.ramotion.expandingcollection;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
@@ -12,8 +13,7 @@ import android.widget.TextView;
 
 public class ECPagerCardHead extends FrameLayout {
 
-    private TextView headTitleTextView;
-    private ImageView headImageView;
+    private ImageView headBackgroundImageView;
 
     public ECPagerCardHead(Context context) {
         super(context);
@@ -31,24 +31,18 @@ public class ECPagerCardHead extends FrameLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         try {
-            headImageView = (ImageView) getChildAt(0);
-            headTitleTextView = (TextView) getChildAt(1);
+            headBackgroundImageView = (ImageView) getChildAt(0);
         } catch (Exception e) {
-            throw new IllegalStateException("Invalid children elements in ECPagerCardHeads.");
+            throw new IllegalStateException("Invalid children elements in ECPagerCardHead.");
         }
     }
 
-    public void setHeadImageDrawable(Drawable headImageDrawable) {
-        if (this.headImageView != null)
-            this.headImageView.setImageDrawable(headImageDrawable);
+    protected void setHeadImageDrawable(Drawable headImageDrawable) {
+        if (this.headBackgroundImageView != null)
+            this.headBackgroundImageView.setImageDrawable(headImageDrawable);
     }
 
-    public void setHeadTitleText(String headTitleText) {
-        if (this.headTitleTextView != null)
-            this.headTitleTextView.setText(headTitleText);
-    }
-
-    public void animateHeight(int targetHeight, int duration, int delay) {
+    protected void animateHeight(int targetHeight, int duration, int delay) {
         final ViewGroup.LayoutParams cardHeaderLayoutParams = this.getLayoutParams();
 
         ValueAnimator cardHeadHeightAnimation = new ValueAnimator();
@@ -68,7 +62,7 @@ public class ECPagerCardHead extends FrameLayout {
         cardHeadHeightAnimation.start();
     }
 
-    public void setHeight(int height) {
+    protected void setHeight(int height) {
         this.getLayoutParams().height = height;
     }
 

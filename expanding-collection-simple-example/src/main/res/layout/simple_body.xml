@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:minHeight="300dp">
+
+    <ListView
+        android:id="@+id/body_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/colorPagerCard"
+        android:cacheColorHint="@android:color/transparent"
+        android:listSelector="@android:color/transparent" />
+
+</RelativeLayout>

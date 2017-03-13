@@ -2,12 +2,14 @@
 
 <com.ramotion.expandingcollection.ECPagerCard xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPagerCard">
 
     <com.ramotion.expandingcollection.ECPagerCardContent
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="@color/colorPagerCardScroll">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,24 +21,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <com.ramotion.expandingcollection.ImageViewTopCrop
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="card_head_image"
-                    android:scaleType="centerCrop" />
-
-                <TextView
-                    style="@style/ec_card_title_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textAlignment="center" />
+                    android:contentDescription="card_head_image" />
 
             </com.ramotion.expandingcollection.ECPagerCardHead>
 
             <com.ramotion.expandingcollection.ECPagerCardBody
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:background="@color/colorCardBody">
 
             </com.ramotion.expandingcollection.ECPagerCardBody>
 

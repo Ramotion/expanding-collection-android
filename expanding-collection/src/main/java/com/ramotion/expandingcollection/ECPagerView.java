@@ -2,6 +2,7 @@ package com.ramotion.expandingcollection;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -16,6 +17,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import java.util.List;
+
+import ramotion.com.expandingcollection.R;
 
 
 /**
@@ -32,10 +35,11 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
 
     private Integer cardWidth;
     private Integer cardHeight;
-    private Integer cardHeaderHeightNormal;
     private Integer cardHeaderHeightExpanded;
 
     private int nextTopMargin = 0;
+
+    private OnCardSelectedListener onCardSelectedListener;
 
     public ECPagerView(Context context) {
         super(context);
@@ -44,12 +48,26 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
 
     public ECPagerView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initializeFromAttributes(context, attrs);
         init(context);
     }
 
     public ECPagerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        initializeFromAttributes(context, attrs);
         init(context);
+
+    }
+
+    protected void initializeFromAttributes(Context context, AttributeSet attrs) {
+        TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ExpandingCollection, 0, 0);
+        try {
+            this.cardWidth = array.getInt(R.styleable.ExpandingCollection_cardWidth, 400);
+            this.cardHeight = array.getColor(R.styleable.ExpandingCollection_cardHeight, 300);
+            this.cardHeaderHeightExpanded = array.getInt(R.styleable.ExpandingCollection_cardHeaderHeightExpanded, 300);
+        } finally {
+            array.recycle();
+        }
     }
 
     private void init(Context context) {
@@ -74,6 +92,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         try {
             pager = (ECPager) getChildAt(0);
             pager.addOnPageChangeListener(this);
+            pager.updateLayoutDimensions(cardWidth, cardHeight);
         } catch (Exception e) {
             throw new IllegalStateException("The root child of PagerContainer must be a ViewPager");
         }
@@ -121,6 +140,8 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
                 attachedImageSwitcher.setImageDrawableWithAnimation(newBackgroundDrawable, ECBackgroundView.AnimationDirection.RIGHT);
             }
         }
+        if (onCardSelectedListener != null)
+            onCardSelectedListener.cardSelected(oldPosition, position);
     }
 
     @Override
@@ -167,8 +188,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         return this;
     }
 
-    public ECPagerView withCardHeaderHeight(int cardHeaderHeightNormal, int cardHeaderHeightExpanded) {
-        this.cardHeaderHeightNormal = cardHeaderHeightNormal;
+    public ECPagerView withCardExpandedHeaderHeight(int cardHeaderHeightExpanded) {
         this.cardHeaderHeightExpanded = cardHeaderHeightExpanded;
         return this;
     }
@@ -190,23 +210,28 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         return cardHeight;
     }
 
-    public int getCardHeaderHeightNormal() {
-        return cardHeaderHeightNormal;
-    }
-
     public int getCardHeaderHeightExpanded() {
         return cardHeaderHeightExpanded;
     }
 
-    public boolean expandCurrentCard() {
-        return pager.expandCurrentCard();
+    public boolean expand() {
+        return pager.expand();
     }
 
-    public boolean collapseCurrentCard() {
-        return pager.collapseCurrentCard();
+    public boolean collapse() {
+        return pager.collapse();
     }
 
-    public boolean toggleCurrentCard() {
-        return pager.toggleCurrentCard();
+    public boolean toggle() {
+        return pager.toggle();
+    }
+
+    public interface OnCardSelectedListener {
+
+        void cardSelected(int oldPosition, int newPosition);
+    }
+
+    public void setOnCardSelectedListener(OnCardSelectedListener onCardSelectedListener) {
+        this.onCardSelectedListener = onCardSelectedListener;
     }
 }

@@ -85,7 +85,7 @@ public class ECPagerCard extends FrameLayout {
         pager.disablePaging();
 
         pagerCardContent.scrollToTop();
-        pagerCardContent.disableScroll();
+//        pagerCardContent.disableScroll();
 
         AnimationListener onAnimationEnd = new AnimationListener() {
             @Override
@@ -103,7 +103,7 @@ public class ECPagerCard extends FrameLayout {
 
         pagerView.toggleTopMargin(cardAnimDuration, 0);
         pager.animateHeight(pagerView.getCardHeight(), cardAnimDuration, 0, null);
-        pagerCardContent.getCardHead().animateHeight(pagerView.getCardHeaderHeightNormal(), cardAnimDuration, 0);
+        pagerCardContent.getCardHead().animateHeight(pagerView.getCardHeight(), cardAnimDuration, 0);
         pagerCardContent.animateWidth(pagerView.getCardWidth(), cardAnimDuration, 0);
 
         pager.animateWidth(pagerView.getCardWidth(), pushNeighboursDuration, pushNeighboursDelay, onAnimationEnd);

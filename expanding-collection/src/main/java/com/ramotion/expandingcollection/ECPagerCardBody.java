@@ -25,19 +25,17 @@ public class ECPagerCardBody extends FrameLayout {
         return touchDisabled;
     }
 
-
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
         return touchDisabled;
     }
 
-    public void disableTouch() {
+    protected void disableTouch() {
         touchDisabled = true;
     }
 
-    public void enableTouch() {
+    protected void enableTouch() {
         touchDisabled = false;
     }
-
 
 }

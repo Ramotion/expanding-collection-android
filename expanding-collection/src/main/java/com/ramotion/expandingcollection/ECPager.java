@@ -65,7 +65,7 @@ public class ECPager extends ViewPager {
         super.setAdapter(adapter);
     }
 
-    public void animateWidth(int targetWidth, int duration, int startDelay, AnimationListener onAnimationEnd) {
+    protected void animateWidth(int targetWidth, int duration, int startDelay, AnimationListener onAnimationEnd) {
         ValueAnimator pagerWidthAnimation = new ValueAnimator();
         pagerWidthAnimation.setInterpolator(new AccelerateInterpolator());
         pagerWidthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -86,7 +86,7 @@ public class ECPager extends ViewPager {
         pagerWidthAnimation.start();
     }
 
-    public void animateHeight(int targetHeight, int duration, int startDelay, AnimationListener onAnimationEnd) {
+    protected void animateHeight(int targetHeight, int duration, int startDelay, AnimationListener onAnimationEnd) {
         ValueAnimator pagerHeightAnimation = new ValueAnimator();
         pagerHeightAnimation.setInterpolator(new DecelerateInterpolator());
         pagerHeightAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -121,17 +121,17 @@ public class ECPager extends ViewPager {
         this.currentPosition = currentPosition;
     }
 
-    public boolean expandCurrentCard() {
+    public boolean expand() {
         ECPagerAdapter adapter = (ECPagerAdapter) getAdapter();
         return adapter.getActiveCard().expand();
     }
 
-    public boolean collapseCurrentCard() {
+    public boolean collapse() {
         ECPagerAdapter adapter = (ECPagerAdapter) getAdapter();
         return adapter.getActiveCard().collapse();
     }
 
-    public boolean toggleCurrentCard() {
+    public boolean toggle() {
         ECPagerAdapter adapter = (ECPagerAdapter) getAdapter();
         return adapter.getActiveCard().toggle();
     }
