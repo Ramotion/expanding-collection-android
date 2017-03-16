@@ -4,9 +4,11 @@ import android.graphics.drawable.Drawable;
 
 import com.ramotion.expandingcollection.ECCardData;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
-public class PagerCardDataPOJO implements ECCardData {
+public class PagerCardDataPOJO implements ECCardData<CommentPOJO> {
 
     private String headTitle;
     private Drawable headBgImageDrawable;
@@ -18,7 +20,7 @@ public class PagerCardDataPOJO implements ECCardData {
     private int personViewsCount;
     private int personCommentsCount;
     private int personLikesCount;
-    private CommentPOJO[] comments;
+    private List<CommentPOJO> comments;
 
     public PagerCardDataPOJO() {
         Random rnd = new Random();
@@ -105,11 +107,12 @@ public class PagerCardDataPOJO implements ECCardData {
         this.personLikesCount = personLikesCount;
     }
 
-    public CommentPOJO[] getComments() {
+    @Override
+    public List<CommentPOJO> getComments() {
         return comments;
     }
 
-    public void setComments(CommentPOJO[] comments) {
+    public void setComments(List<CommentPOJO> comments) {
         this.comments = comments;
     }
 }

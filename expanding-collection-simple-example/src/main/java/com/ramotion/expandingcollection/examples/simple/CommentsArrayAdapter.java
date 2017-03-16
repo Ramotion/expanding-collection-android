@@ -7,32 +7,34 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ramotion.expandingcollection.ECCardContentListAdapter;
+
+import java.util.List;
+
 import ramotion.com.expandingcollection.examples.simple.R;
 
-public class CommentsArrayAdapter extends ArrayAdapter<CommentPOJO> {
+public class CommentsArrayAdapter extends ECCardContentListAdapter<CommentPOJO> {
 
-    private final Context context;
-    private final CommentPOJO[] values;
+    public CommentsArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<CommentPOJO> objects) {
+        super(context, resource, objects);
+    }
 
-    public CommentsArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull CommentPOJO[] values) {
-        super(context, resource, values);
-        this.context = context;
-        this.values = values;
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
         ViewHolder viewHolder;
         View rowView = convertView;
 
         if (rowView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
 
             rowView = inflater.inflate(R.layout.list_element, null);
             // configure view holder
@@ -45,7 +47,7 @@ public class CommentsArrayAdapter extends ArrayAdapter<CommentPOJO> {
             viewHolder = (ViewHolder) rowView.getTag();
         }
 
-        CommentPOJO objectItem = values[position];
+        CommentPOJO objectItem = getItem(position);
 
         if (objectItem != null) {
             viewHolder.line1.setText(objectItem.getCommentPersonName());
@@ -62,8 +64,4 @@ public class CommentsArrayAdapter extends ArrayAdapter<CommentPOJO> {
         ImageView icon;
     }
 
-    @Override
-    public int getCount() {
-        return values.length;
-    }
 }

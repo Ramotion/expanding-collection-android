@@ -1,6 +1,7 @@
 package com.ramotion.expandingcollection;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
@@ -8,7 +9,8 @@ import android.widget.FrameLayout;
 
 public class ECPagerCard extends FrameLayout {
 
-    private ECPagerCardContent pagerCardContent;
+    private ECPagerCardContentList ecPagerCardContentList;
+
     private boolean animationInProgress;
     private boolean cardExpanded;
 
@@ -28,15 +30,15 @@ public class ECPagerCard extends FrameLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         try {
-            pagerCardContent = (ECPagerCardContent) getChildAt(0);
-            pagerCardContent.disableScroll();
+            ecPagerCardContentList = (ECPagerCardContentList) getChildAt(0);
+//            ecPagerCardListContent.disableScroll();
         } catch (Exception e) {
             throw new IllegalStateException("Invalid children element in ECPagerCard.");
         }
     }
 
-    public ECPagerCardContent getPagerCardContent() {
-        return pagerCardContent;
+    public ECPagerCardContentList getEcPagerCardContentList() {
+        return ecPagerCardContentList;
     }
 
     public boolean expand() {
@@ -46,18 +48,18 @@ public class ECPagerCard extends FrameLayout {
         final ECPager pager = (ECPager) getParent();
         final ECPagerView pagerView = (ECPagerView) pager.getParent();
 
+
         pager.disablePaging();
 
         ViewGroup pagerParent = (ViewGroup) pagerView.getParent();
         int expandedCardWidth = pagerParent.getWidth();
         int expandedCardHeight = pagerParent.getHeight();
 
-        AnimationListener onAnimationEnd = new AnimationListener() {
+        AnimatorListenerAdapter onAnimationEnd = new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 animationInProgress = false;
-                pagerCardContent.getCardBody().enableTouch();
-                pagerCardContent.enableScroll();
+//                ecPagerCardContentList.enableScroll();
                 cardExpanded = true;
             }
         };
@@ -68,10 +70,11 @@ public class ECPagerCard extends FrameLayout {
 
         pager.animateWidth(expandedCardWidth, pushNeighboursDuration, 0, null);
 
-        pagerCardContent.animateWidth(expandedCardWidth, cardAnimDuration, cardAnimDelay);
+        ecPagerCardContentList.animateWidth(expandedCardWidth, cardAnimDuration, cardAnimDelay);
         pagerView.toggleTopMargin(cardAnimDuration, cardAnimDelay);
         pager.animateHeight(expandedCardHeight, cardAnimDuration, cardAnimDelay, onAnimationEnd);
-        pagerCardContent.getCardHead().animateHeight(pagerView.getCardHeaderHeightExpanded(), cardAnimDuration, cardAnimDelay);
+        ecPagerCardContentList.getHeadView().animateHeight(pagerView.getCardHeaderHeightExpanded(), cardAnimDuration, cardAnimDelay);
+        ecPagerCardContentList.showListElements();
         return true;
     }
 
@@ -84,16 +87,16 @@ public class ECPagerCard extends FrameLayout {
 
         pager.disablePaging();
 
-        pagerCardContent.scrollToTop();
-//        pagerCardContent.disableScroll();
+        ecPagerCardContentList.scrollToTop();
+//        ecPagerCardListContent.disableScroll();
 
-        AnimationListener onAnimationEnd = new AnimationListener() {
+        AnimatorListenerAdapter onAnimationEnd = new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 animationInProgress = false;
                 pager.enablePaging();
-                pagerCardContent.getCardBody().disableTouch();
                 cardExpanded = false;
+                ecPagerCardContentList.hideListElements();
             }
         };
 
@@ -103,8 +106,8 @@ public class ECPagerCard extends FrameLayout {
 
         pagerView.toggleTopMargin(cardAnimDuration, 0);
         pager.animateHeight(pagerView.getCardHeight(), cardAnimDuration, 0, null);
-        pagerCardContent.getCardHead().animateHeight(pagerView.getCardHeight(), cardAnimDuration, 0);
-        pagerCardContent.animateWidth(pagerView.getCardWidth(), cardAnimDuration, 0);
+        ecPagerCardContentList.animateWidth(pagerView.getCardWidth(), cardAnimDuration, 0);
+        ecPagerCardContentList.getHeadView().animateHeight(pagerView.getCardHeight(), cardAnimDuration, 0);
 
         pager.animateWidth(pagerView.getCardWidth(), pushNeighboursDuration, pushNeighboursDelay, onAnimationEnd);
         return true;

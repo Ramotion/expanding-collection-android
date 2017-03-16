@@ -1,5 +1,6 @@
 package com.ramotion.expandingcollection;
 
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -49,7 +50,7 @@ public class ECPager extends ViewPager {
     }
 
     public ECCardData getDataFromAdapterDataset(int position) {
-        return ((ECPagerAdapter) this.getAdapter()).getDataset().get(position);
+        return ((ECPagerViewAdapter) this.getAdapter()).getDataset().get(position);
     }
 
     public void enablePaging() {
@@ -65,7 +66,7 @@ public class ECPager extends ViewPager {
         super.setAdapter(adapter);
     }
 
-    protected void animateWidth(int targetWidth, int duration, int startDelay, AnimationListener onAnimationEnd) {
+    protected void animateWidth(int targetWidth, int duration, int startDelay, AnimatorListenerAdapter onAnimationEnd) {
         ValueAnimator pagerWidthAnimation = new ValueAnimator();
         pagerWidthAnimation.setInterpolator(new AccelerateInterpolator());
         pagerWidthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -86,7 +87,7 @@ public class ECPager extends ViewPager {
         pagerWidthAnimation.start();
     }
 
-    protected void animateHeight(int targetHeight, int duration, int startDelay, AnimationListener onAnimationEnd) {
+    protected void animateHeight(int targetHeight, int duration, int startDelay, AnimatorListenerAdapter onAnimationEnd) {
         ValueAnimator pagerHeightAnimation = new ValueAnimator();
         pagerHeightAnimation.setInterpolator(new DecelerateInterpolator());
         pagerHeightAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -122,17 +123,17 @@ public class ECPager extends ViewPager {
     }
 
     public boolean expand() {
-        ECPagerAdapter adapter = (ECPagerAdapter) getAdapter();
+        ECPagerViewAdapter adapter = (ECPagerViewAdapter) getAdapter();
         return adapter.getActiveCard().expand();
     }
 
     public boolean collapse() {
-        ECPagerAdapter adapter = (ECPagerAdapter) getAdapter();
+        ECPagerViewAdapter adapter = (ECPagerViewAdapter) getAdapter();
         return adapter.getActiveCard().collapse();
     }
 
     public boolean toggle() {
-        ECPagerAdapter adapter = (ECPagerAdapter) getAdapter();
+        ECPagerViewAdapter adapter = (ECPagerViewAdapter) getAdapter();
         return adapter.getActiveCard().toggle();
     }
 }

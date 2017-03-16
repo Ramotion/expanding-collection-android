@@ -2,9 +2,13 @@ package com.ramotion.expandingcollection;
 
 import android.graphics.drawable.Drawable;
 
-public interface ECCardData {
+import java.util.Collection;
+
+public interface ECCardData<T> {
 
     Drawable getMainBgImageDrawable();
 
     Drawable getHeadBgImageDrawable();
+
+    Collection<T> getComments();
 }

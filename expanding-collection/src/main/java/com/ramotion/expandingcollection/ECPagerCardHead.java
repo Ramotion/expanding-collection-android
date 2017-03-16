@@ -2,14 +2,13 @@ package com.ramotion.expandingcollection;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class ECPagerCardHead extends FrameLayout {
 
@@ -17,14 +16,23 @@ public class ECPagerCardHead extends FrameLayout {
 
     public ECPagerCardHead(Context context) {
         super(context);
+        init(context);
     }
 
     public ECPagerCardHead(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public ECPagerCardHead(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context);
+    }
+
+    public void init(Context context) {
+        headBackgroundImageView = new TopCropImageView(context);
+        headBackgroundImageView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
+        this.addView(headBackgroundImageView);
     }
 
     @Override

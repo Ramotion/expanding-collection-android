@@ -1,6 +1,5 @@
 package com.ramotion.expandingcollection.examples.simple;
 
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.StrictMode;
@@ -10,19 +9,19 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ramotion.expandingcollection.ECCardData;
-import com.ramotion.expandingcollection.ECPagerAdapter;
+import com.ramotion.expandingcollection.ECPagerViewAdapter;
 import com.ramotion.expandingcollection.ECBackgroundView;
+import com.ramotion.expandingcollection.ECPagerCardContentList;
 import com.ramotion.expandingcollection.ECPagerView;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ramotion.com.expandingcollection.examples.simple.R;
@@ -48,56 +47,48 @@ public class MainActivity extends FragmentActivity {
         List<ECCardData> exampleDataSet = getExampleDataSet(displaySize.x, displaySize.y);
 
         // Create adapter for pager
-        ECPagerAdapter adapter = new ECPagerAdapter(this, exampleDataSet) {
+        ECPagerViewAdapter adapter = new ECPagerViewAdapter(this, exampleDataSet) {
 
             @Override
-            public void instantiateCard(LayoutInflater inflaterService, ViewGroup cardHead, ViewGroup cardBody, ECCardData data) {
-                PagerCardDataPOJO cardDataHolder = (PagerCardDataPOJO) data;
+            public void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ECPagerCardContentList list, final ECCardData data) {
+                final PagerCardDataPOJO cardDataHolder = (PagerCardDataPOJO) data;
 
-                // inflate custom layout and place it in card body
-//                inflaterService.inflate(R.layout.simple_body, cardBody);
-//
-//                ImageView testListHeader = new ImageView(getApplicationContext());
-//                testListHeader.setBackgroundColor(Color.RED);
-//                testListHeader.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100));
-//
-//                ListView commentsList = (ListView) cardBody.findViewById(R.id.body_list_view);
-//                commentsList.addHeaderView(testListHeader);
-//                commentsList.setAdapter(new CommentsArrayAdapter(getApplicationContext(), R.layout.list_element, ((PagerCardDataPOJO) data).getComments()));
+                // Create adapter for list inside a card and set adapter to card content
+                CommentsArrayAdapter commentsArrayAdapter = new CommentsArrayAdapter(getApplicationContext(), R.layout.list_element, cardDataHolder.getComments());
+                list.setEcArrayAdapter(commentsArrayAdapter);
 
-                // do the same for header
-                inflaterService.inflate(R.layout.simple_head, cardHead);
+                // Inflate header layout and attach it to header
+                inflaterService.inflate(R.layout.simple_head, head);
 
-                TextView title = (TextView) cardHead.findViewById(R.id.title);
+                // Set header data
+                TextView title = (TextView) head.findViewById(R.id.title);
                 title.setText(cardDataHolder.getHeadTitle());
 
-                ImageView avatar = (ImageView) cardHead.findViewById(R.id.avatar);
+                ImageView avatar = (ImageView) head.findViewById(R.id.avatar);
                 avatar.setImageDrawable(cardDataHolder.getPersonPicture());
 
-                TextView name = (TextView) cardHead.findViewById(R.id.name);
+                TextView name = (TextView) head.findViewById(R.id.name);
                 name.setText(cardDataHolder.getPersonName());
 
-                TextView message = (TextView) cardHead.findViewById(R.id.message);
+                TextView message = (TextView) head.findViewById(R.id.message);
                 message.setText(cardDataHolder.getPersonMessage());
 
-                TextView viewsCount = (TextView) cardHead.findViewById(R.id.socialViewsCount);
+                TextView viewsCount = (TextView) head.findViewById(R.id.socialViewsCount);
                 viewsCount.setText(" " + cardDataHolder.getPersonViewsCount());
 
-                TextView likesCount = (TextView) cardHead.findViewById(R.id.socialLikesCount);
+                TextView likesCount = (TextView) head.findViewById(R.id.socialLikesCount);
                 likesCount.setText(" " + cardDataHolder.getPersonLikesCount());
 
-                TextView commentsCount = (TextView) cardHead.findViewById(R.id.socialCommentsCount);
+                TextView commentsCount = (TextView) head.findViewById(R.id.socialCommentsCount);
                 commentsCount.setText(" " + cardDataHolder.getPersonCommentsCount());
 
                 // add toggling card by tap on card head
-                cardHead.setOnClickListener(new View.OnClickListener() {
+                head.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
                         ecPagerView.toggle();
                     }
                 });
-
-
             }
         };
 
@@ -107,10 +98,10 @@ public class MainActivity extends FragmentActivity {
 
         // Tune pager view
         ecPagerView
-                .withCardSize(500, 600)
-                .withCardExpandedHeaderHeight(500)
+                .withCardSize(500, 550)
+                .withCardExpandedHeaderHeight(400)
                 .withBackgroundImageSwitcher(bgView)
-                .withPagerAdapter(adapter);
+                .withPagerViewAdapter(adapter);
     }
 
     @Override
@@ -121,6 +112,24 @@ public class MainActivity extends FragmentActivity {
 
     private List<ECCardData> getExampleDataSet(int imageWidth, int imageHeight) {
         List<ECCardData> dataset = new ArrayList<>();
+
+        PagerCardDataPOJO item5 = new PagerCardDataPOJO();
+        item5.setBgImageDrawable(placePenguin(imageWidth, imageHeight));
+        item5.setHeadTitle("FiftH");
+        item5.setPersonMessage("Vae, nix!");
+        item5.setPersonName("Frederich Nilson");
+        item5.setPersonPicture(placePenguin(100, 100));
+        item5.setComments(prepareCommentsArray());
+        dataset.add(item5);
+
+        PagerCardDataPOJO item4 = new PagerCardDataPOJO();
+        item4.setBgImageDrawable(placePenguin(imageWidth, imageHeight));
+        item4.setHeadTitle("FOurTH");
+        item4.setPersonMessage("Celery can be covered with heated peanut butter.");
+        item4.setPersonName("Peter Jackson");
+        item4.setPersonPicture(placePenguin(100, 100));
+        item4.setComments(prepareCommentsArray());
+        dataset.add(item4);
 
         PagerCardDataPOJO item3 = new PagerCardDataPOJO();
         item3.setBgImageDrawable(placePenguin(imageWidth, imageHeight));
@@ -152,14 +161,19 @@ public class MainActivity extends FragmentActivity {
         return dataset;
     }
 
-    private CommentPOJO[] prepareCommentsArray() {
-        return new CommentPOJO[]{
-                new CommentPOJO(placePenguin(100, 100), "Bob Marley", "No womans, no cry", "9 apr. 2014"),
-                new CommentPOJO(placePenguin(100, 100), "John Avon", "For Zendikar!", "12 jan. 2014"),
-                new CommentPOJO(placePenguin(100, 100), "Rebecca Guay", "Faeries are awesome", "1 jun. 2015"),
-                new CommentPOJO(placePenguin(100, 100), "Peter Jackson", "There and Back Again", "21 sep. 1937")
-        };
-
+    private List<CommentPOJO> prepareCommentsArray() {
+        return Arrays.asList(new CommentPOJO(placePenguin(100, 100), "CASEY AFFLECK", "Manchester by the Sea", "9 apr. 2014"),
+                new CommentPOJO(placePenguin(100, 100), "MAHERSHALA ALI", "Moonlight", "12 jan. 2014"),
+                new CommentPOJO(placePenguin(100, 100), "EMMA STONE", "La La Land", "1 jun. 2015"),
+                new CommentPOJO(placePenguin(100, 100), "VIOLA DAVIS", "Fences", "21 sep. 1937"),
+                new CommentPOJO(placePenguin(100, 100), "ZOOTOPIA", "Byron Howard, Rich Moore and Clark Spencer", "21 sep. 1937"),
+                new CommentPOJO(placePenguin(100, 100), "LA LA LAND", "Linus Sandgren", "21 sep. 1937"),
+                new CommentPOJO(placePenguin(100, 100), "THE WHITE HELMETS", "Orlando von Einsiedel and Joanna Natasegara", "21 sep. 1937"),
+                new CommentPOJO(placePenguin(100, 100), "LA LA LAND", "Damien Chazelle", "27 dec. 1952"),
+                new CommentPOJO(placePenguin(100, 100), "HACKSAW RIDGE", "John Gilbert", "21 sep. 1937"),
+                new CommentPOJO(placePenguin(100, 100), "THE SALESMAN", "Iran", "22 sep. 1938"),
+                new CommentPOJO(placePenguin(100, 100), "SUICIDE SQUAD", "Alessandro Bertolazzi, Giorgio Gregorini and Christopher Nelson", "13 nov. 1964"),
+                new CommentPOJO(placePenguin(100, 100), "LA LA LAND", "Justin Hurwitz", "11 oct. 1987"));
     }
 
     public Drawable placePenguin(int w, int h) {

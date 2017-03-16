@@ -56,7 +56,6 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         super(context, attrs, defStyle);
         initializeFromAttributes(context, attrs);
         init(context);
-
     }
 
     protected void initializeFromAttributes(Context context, AttributeSet attrs) {
@@ -142,6 +141,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         }
         if (onCardSelectedListener != null)
             onCardSelectedListener.cardSelected(oldPosition, position);
+
     }
 
     @Override
@@ -174,7 +174,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
     public ECPagerView withBackgroundImageSwitcher(ECBackgroundView imageSwitcher) {
         this.attachedImageSwitcher = imageSwitcher;
         if (attachedImageSwitcher == null) return this;
-        ECPagerAdapter adapter = (ECPagerAdapter) this.pager.getAdapter();
+        ECPagerViewAdapter adapter = (ECPagerViewAdapter) this.pager.getAdapter();
         if (adapter != null && adapter.getDataset() != null && adapter.getDataset().size() > 1) {
             attachedImageSwitcher.setImageDrawable(adapter.getDataset().get(this.pager.getCurrentPosition()).getMainBgImageDrawable());
         }
@@ -193,7 +193,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         return this;
     }
 
-    public ECPagerView withPagerAdapter(ECPagerAdapter adapter) {
+    public ECPagerView withPagerViewAdapter(ECPagerViewAdapter adapter) {
         this.pager.setAdapter(adapter);
         List<ECCardData> dataset = adapter.getDataset();
         if (dataset != null && dataset.size() > 1 && attachedImageSwitcher != null) {
@@ -231,7 +231,4 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         void cardSelected(int oldPosition, int newPosition);
     }
 
-    public void setOnCardSelectedListener(OnCardSelectedListener onCardSelectedListener) {
-        this.onCardSelectedListener = onCardSelectedListener;
-    }
 }

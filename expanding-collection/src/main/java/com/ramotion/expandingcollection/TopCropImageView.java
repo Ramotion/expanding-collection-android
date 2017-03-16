@@ -7,18 +7,18 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 @SuppressLint("AppCompatCustomView")
-public class ImageViewTopCrop extends ImageView {
-    public ImageViewTopCrop(Context context) {
+public class TopCropImageView extends ImageView {
+    public TopCropImageView(Context context) {
         super(context);
         setScaleType(ScaleType.MATRIX);
     }
 
-    public ImageViewTopCrop(Context context, AttributeSet attrs) {
+    public TopCropImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setScaleType(ScaleType.MATRIX);
     }
 
-    public ImageViewTopCrop(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TopCropImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setScaleType(ScaleType.MATRIX);
     }
