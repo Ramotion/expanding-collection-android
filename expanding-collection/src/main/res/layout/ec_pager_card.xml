@@ -9,7 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:background="@color/colorCardBody">
+        android:background="@android:color/white"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/colorListDivider"
+        android:dividerHeight="1dp"
+        android:listSelector="@android:color/transparent">
 
     </com.ramotion.expandingcollection.ECPagerCardContentList>
 

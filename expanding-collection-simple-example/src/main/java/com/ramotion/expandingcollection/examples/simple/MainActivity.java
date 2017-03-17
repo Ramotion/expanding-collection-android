@@ -68,7 +68,7 @@ public class MainActivity extends FragmentActivity {
                 avatar.setImageDrawable(cardDataHolder.getPersonPicture());
 
                 TextView name = (TextView) head.findViewById(R.id.name);
-                name.setText(cardDataHolder.getPersonName());
+                name.setText(cardDataHolder.getPersonName() + ":");
 
                 TextView message = (TextView) head.findViewById(R.id.message);
                 message.setText(cardDataHolder.getPersonMessage());
@@ -99,7 +99,7 @@ public class MainActivity extends FragmentActivity {
         // Tune pager view
         ecPagerView
                 .withCardSize(500, 550)
-                .withCardExpandedHeaderHeight(400)
+                .withCardExpandedHeaderHeight(450)
                 .withBackgroundImageSwitcher(bgView)
                 .withPagerViewAdapter(adapter);
     }
@@ -162,18 +162,16 @@ public class MainActivity extends FragmentActivity {
     }
 
     private List<CommentPOJO> prepareCommentsArray() {
-        return Arrays.asList(new CommentPOJO(placePenguin(100, 100), "CASEY AFFLECK", "Manchester by the Sea", "9 apr. 2014"),
-                new CommentPOJO(placePenguin(100, 100), "MAHERSHALA ALI", "Moonlight", "12 jan. 2014"),
-                new CommentPOJO(placePenguin(100, 100), "EMMA STONE", "La La Land", "1 jun. 2015"),
-                new CommentPOJO(placePenguin(100, 100), "VIOLA DAVIS", "Fences", "21 sep. 1937"),
-                new CommentPOJO(placePenguin(100, 100), "ZOOTOPIA", "Byron Howard, Rich Moore and Clark Spencer", "21 sep. 1937"),
-                new CommentPOJO(placePenguin(100, 100), "LA LA LAND", "Linus Sandgren", "21 sep. 1937"),
-                new CommentPOJO(placePenguin(100, 100), "THE WHITE HELMETS", "Orlando von Einsiedel and Joanna Natasegara", "21 sep. 1937"),
-                new CommentPOJO(placePenguin(100, 100), "LA LA LAND", "Damien Chazelle", "27 dec. 1952"),
-                new CommentPOJO(placePenguin(100, 100), "HACKSAW RIDGE", "John Gilbert", "21 sep. 1937"),
-                new CommentPOJO(placePenguin(100, 100), "THE SALESMAN", "Iran", "22 sep. 1938"),
-                new CommentPOJO(placePenguin(100, 100), "SUICIDE SQUAD", "Alessandro Bertolazzi, Giorgio Gregorini and Christopher Nelson", "13 nov. 1964"),
-                new CommentPOJO(placePenguin(100, 100), "LA LA LAND", "Justin Hurwitz", "11 oct. 1987"));
+        return Arrays.asList(
+                new CommentPOJO(getResources().getDrawable(R.drawable.f1), "Pamela Jenkins", "When the sensor experiments for deep space, all mermaids accelerate mysterious, vital moons.", "12 jan. 2014"),
+                new CommentPOJO(getResources().getDrawable(R.drawable.m1), "Miguel Evans", "It is a cold powerdrain, sir.", "1 jun. 2015"),
+                new CommentPOJO(getResources().getDrawable(R.drawable.f2), "Amber Butler", "Particle of a calm shield, control the alignment!", "21 sep. 1937"),
+                new CommentPOJO(getResources().getDrawable(R.drawable.f3), "Chloe Ray", "The human kahless quickly promises the phenomenan.", "21 sep. 1937"),
+                new CommentPOJO(getResources().getDrawable(R.drawable.m2), "Duane Miles", "Ionic cannon at the infinity room was the sensor of voyage, imitated to a dead pathway.", "21 sep. 1937"),
+                new CommentPOJO(getResources().getDrawable(R.drawable.m3), "Francis Armstrong", "Vital particles, to the port.", "21 sep. 1937"),
+                new CommentPOJO(getResources().getDrawable(R.drawable.f4), "Valerie Stephens", "Stars fly with hypnosis at the boldly infinity room!", "27 dec. 1952"),
+                new CommentPOJO(getResources().getDrawable(R.drawable.m4), "Julio Ward", "Hypnosis, definition, and powerdrain.", "21 sep. 1937"),
+                new CommentPOJO(getResources().getDrawable(R.drawable.m5), "David Gibson", "When the queen experiments for nowhere, all particles control reliable, cold captains.", "13 nov. 1964"));
     }
 
     public Drawable placePenguin(int w, int h) {

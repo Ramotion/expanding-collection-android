@@ -48,7 +48,6 @@ public class ECPagerCard extends FrameLayout {
         final ECPager pager = (ECPager) getParent();
         final ECPagerView pagerView = (ECPagerView) pager.getParent();
 
-
         pager.disablePaging();
 
         ViewGroup pagerParent = (ViewGroup) pagerView.getParent();

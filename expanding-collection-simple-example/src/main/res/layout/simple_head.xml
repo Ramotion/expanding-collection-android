@@ -12,11 +12,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:text="CARD TITLE HERE"
-        android:textAppearance="@style/ec_card_title_text" />
+        android:textAppearance="@style/cardHeadTitle" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         android:padding="15dp">
@@ -25,8 +25,8 @@
             android:id="@+id/avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginRight="10dp"
-            android:background="@android:color/holo_blue_light" />
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp" />
 
         <TextView
             android:id="@+id/name"
@@ -35,47 +35,70 @@
             android:layout_alignTop="@id/avatar"
             android:layout_toEndOf="@id/avatar"
             android:layout_toRightOf="@id/avatar"
-            android:background="@android:color/holo_blue_bright"
-            android:text="Name here" />
+            android:textAppearance="@style/cardItemPersonName" />
 
         <TextView
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
-            android:layout_marginTop="5dp"
             android:layout_toEndOf="@id/avatar"
             android:layout_toRightOf="@id/avatar"
-            android:background="@android:color/holo_blue_dark"
-            android:maxLines="1"
-            android:text="Some message here" />
+            android:textAppearance="@style/cardItemComment" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@id/message"
             android:layout_alignStart="@id/message"
             android:layout_below="@id/message"
             android:layout_marginTop="5dp"
+            android:gravity="top"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/socialViewsCount"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
+            <ImageView
+                android:id="@+id/socialViewsCountIcon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:background="@android:color/holo_orange_light" />
 
             <TextView
-                android:id="@+id/socialCommentsCount"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
+                android:id="@+id/socialViewsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/socialCommentsCountIcon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginStart="10dp"
                 android:background="@android:color/holo_green_light" />
 
             <TextView
-                android:id="@+id/socialLikesCount"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
+                android:id="@+id/socialCommentsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/socialLikesCountIcon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginRight="5dp"
+                android:layout_marginStart="10dp"
                 android:background="@android:color/holo_red_light" />
+
+            <TextView
+                android:id="@+id/socialLikesCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

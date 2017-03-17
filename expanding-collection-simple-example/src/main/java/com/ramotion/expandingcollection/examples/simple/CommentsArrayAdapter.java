@@ -24,7 +24,7 @@ public class CommentsArrayAdapter extends ECCardContentListAdapter<CommentPOJO> 
 
     @Override
     public boolean isEnabled(int position) {
-        return false;
+        return true;
     }
 
     @NonNull
@@ -50,7 +50,7 @@ public class CommentsArrayAdapter extends ECCardContentListAdapter<CommentPOJO> 
         CommentPOJO objectItem = getItem(position);
 
         if (objectItem != null) {
-            viewHolder.line1.setText(objectItem.getCommentPersonName());
+            viewHolder.line1.setText(objectItem.getCommentPersonName() + ":");
             viewHolder.line2.setText(objectItem.getCommentText());
             viewHolder.icon.setImageDrawable(objectItem.getCommentPersonPicture());
         }
