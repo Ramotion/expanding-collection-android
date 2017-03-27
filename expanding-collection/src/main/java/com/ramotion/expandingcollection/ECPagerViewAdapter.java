@@ -1,6 +1,8 @@
 package com.ramotion.expandingcollection;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,13 +34,22 @@ public abstract class ECPagerViewAdapter extends PagerAdapter {
         ECPagerCardHead headView = ecPagerCardContentList.getHeadView();
 
         headView.setHeight(pagerContainer.getCardHeight());
-        headView.setHeadImageDrawable(dataset.get(position).getHeadBgImageDrawable());
+
+
+        Bitmap bitmap = dataset.get(position).getHeadBgImageDrawable() == null ? null : dataset.get(position).getHeadBgImageDrawable().getBitmap();
+        if (bitmap == null) {
+            Integer drawableRes = dataset.get(position).getHeadBgImageDrawableResource();
+            if (drawableRes != null) {
+                headView.setHeadImageBitmap(BitmapFactory.decodeResource(pagerContainer.getResources(), drawableRes, new BitmapFactoryOptions()));
+            }
+        }
 
         instantiateCard(inflaterService, headView, ecPagerCardContentList, dataset.get(position));
 
         pager.addView(pagerCard, pagerContainer.getCardWidth(), pagerContainer.getCardHeight());
         return pagerCard;
     }
+
 
     public abstract void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ECPagerCardContentList list, ECCardData data);
 

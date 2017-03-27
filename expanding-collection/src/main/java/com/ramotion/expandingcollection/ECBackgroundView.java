@@ -1,7 +1,10 @@
 package com.ramotion.expandingcollection;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -17,6 +20,8 @@ import android.widget.ViewSwitcher;
 
 public class ECBackgroundView extends ImageSwitcher {
 
+    private final String TAG = "bgview";
+
     private final int[] REVERSE_ORDER = new int[]{1, 0};
     private final int[] NORMAL_ORDER = new int[]{0, 1};
 
@@ -29,7 +34,16 @@ public class ECBackgroundView extends ImageSwitcher {
     private int movementDuration = 500;
     private int widthBackgroundImageGapPercent = 12;
 
+    private Animation bgImageInLeftAnimation;
+    private Animation bgImageOutLeftAnimation;
+
+    private Animation bgImageInRightAnimation;
+    private Animation bgImageOutRightAnimation;
+
     private AnimationDirection currentAnimationDirection;
+
+    private BitmapWorkerTask mCurrentAnimationTask;
+
 
     public ECBackgroundView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -56,11 +70,20 @@ public class ECBackgroundView extends ImageSwitcher {
                 return myView;
             }
         });
+
+        bgImageInLeftAnimation = createBgImageInAnimation(bgImageGap, 0, movementDuration, alphaDuration);
+        bgImageOutLeftAnimation = createBgImageOutAnimation(0, -bgImageGap, movementDuration);
+        bgImageInRightAnimation = createBgImageInAnimation(-bgImageGap, 0, movementDuration, alphaDuration);
+        bgImageOutRightAnimation = createBgImageOutAnimation(0, bgImageGap, movementDuration);
     }
 
     public ECBackgroundView withAnimationSettings(int movementDuration, int alphaDuration) {
         this.movementDuration = movementDuration;
         this.alphaDuration = alphaDuration;
+        bgImageInLeftAnimation = createBgImageInAnimation(bgImageGap, 0, movementDuration, alphaDuration);
+        bgImageOutLeftAnimation = createBgImageOutAnimation(0, -bgImageGap, movementDuration);
+        bgImageInRightAnimation = createBgImageInAnimation(-bgImageGap, 0, movementDuration, alphaDuration);
+        bgImageOutRightAnimation = createBgImageOutAnimation(0, bgImageGap, movementDuration);
         return this;
     }
 
@@ -72,27 +95,75 @@ public class ECBackgroundView extends ImageSwitcher {
             return NORMAL_ORDER[i];
     }
 
-    public boolean isReverseDrawOrder() {
-        return reverseDrawOrder;
-    }
-
     public void setReverseDrawOrder(boolean reverseDrawOrder) {
         this.reverseDrawOrder = reverseDrawOrder;
     }
 
-    public void setImageDrawableWithAnimation(Drawable newDrawable, AnimationDirection animationDirection) {
+    private synchronized void setImageBitmapWithAnimation(Bitmap newBitmap, AnimationDirection animationDirection) {
         if (this.currentAnimationDirection == animationDirection) {
-            this.setImageDrawable(newDrawable);
+            this.setImageBitmap(newBitmap);
         } else if (animationDirection == AnimationDirection.LEFT) {
-            this.setInAnimation(createBgImageInAnimation(bgImageGap, 0, movementDuration, alphaDuration));
-            this.setOutAnimation(createBgImageOutAnimation(0, -bgImageGap, movementDuration));
-            this.setImageDrawable(newDrawable);
+            this.setInAnimation(bgImageInLeftAnimation);
+            this.setOutAnimation(bgImageOutLeftAnimation);
+            this.setImageBitmap(newBitmap);
         } else if (animationDirection == AnimationDirection.RIGHT) {
-            this.setInAnimation(createBgImageInAnimation(-bgImageGap, 0, movementDuration, alphaDuration));
-            this.setOutAnimation(createBgImageOutAnimation(0, bgImageGap, movementDuration));
-            this.setImageDrawable(newDrawable);
+            this.setInAnimation(bgImageInRightAnimation);
+            this.setOutAnimation(bgImageOutRightAnimation);
+            this.setImageBitmap(newBitmap);
         }
         this.currentAnimationDirection = animationDirection;
+    }
+
+    public void cacheBackgroundAtPosition(ECPager pager, int position) {
+        if (position >= 0 && position < pager.getAdapter().getCount()) {
+            Integer mainBgImageDrawableResource = pager.getDataFromAdapterDataset(position).getMainBgImageDrawableResource();
+            BitmapDrawable mainBgImageDrawable = pager.getDataFromAdapterDataset(position).getMainBgImageDrawable();
+            BitmapWorkerTask addBitmapToCacheTask = new BitmapWorkerTask(getResources(), mainBgImageDrawable, mainBgImageDrawableResource);
+            addBitmapToCacheTask.execute(position);
+        }
+    }
+
+    public void updateCurrentBackground(ECPager pager, final AnimationDirection direction) {
+        int position = pager.getCurrentPosition();
+        BackgroundBitmapCache instance = BackgroundBitmapCache.getInstance();
+        Integer mainBgImageDrawableResource = pager.getDataFromAdapterDataset(position).getMainBgImageDrawableResource();
+        BitmapDrawable mainBgImageDrawable = pager.getDataFromAdapterDataset(position).getMainBgImageDrawable();
+
+        if (mainBgImageDrawable != null && !mainBgImageDrawable.getBitmap().isRecycled()) {
+            instance.addBitmapToBgMemoryCache(position, mainBgImageDrawable.getBitmap());
+            setImageBitmapWithAnimation(mainBgImageDrawable.getBitmap(), direction);
+        } else {
+            Bitmap cachedBitmap = instance.getBitmapFromBgMemCache(position);
+            if (cachedBitmap == null) {
+                cachedBitmap = BitmapFactory.decodeResource(getResources(), mainBgImageDrawableResource, new BitmapFactoryOptions());
+                instance.addBitmapToBgMemoryCache(position, cachedBitmap);
+            }
+            setImageBitmapWithAnimation(cachedBitmap, direction);
+        }
+    }
+
+    public void updateCurrentBackgroundAsync(ECPager pager, final AnimationDirection direction) {
+        if (mCurrentAnimationTask != null && mCurrentAnimationTask.getStatus().equals(AsyncTask.Status.RUNNING)) {
+            getInAnimation().cancel();
+        }
+        int position = pager.getCurrentPosition();
+        Integer mainBgImageDrawableResource = pager.getDataFromAdapterDataset(position).getMainBgImageDrawableResource();
+        BitmapDrawable mainBgImageDrawable = pager.getDataFromAdapterDataset(position).getMainBgImageDrawable();
+        mCurrentAnimationTask = new BitmapWorkerTask(getResources(), mainBgImageDrawable, mainBgImageDrawableResource) {
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                super.onPostExecute(bitmap);
+                setImageBitmapWithAnimation(bitmap, direction);
+            }
+        };
+        mCurrentAnimationTask.execute(position, pager.getDataFromAdapterDataset(position).getMainBgImageDrawableResource());
+    }
+
+
+    private void setImageBitmap(Bitmap bitmap) {
+        ImageView image = (ImageView) this.getNextView();
+        image.setImageBitmap(bitmap);
+        showNext();
     }
 
     private Animation createBgImageInAnimation(int fromX, int toX, int transitionDuration, int alphaDuration) {

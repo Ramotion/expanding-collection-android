@@ -4,7 +4,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -38,6 +37,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
     private Integer cardHeaderHeightExpanded;
 
     private int nextTopMargin = 0;
+
 
     private OnCardSelectedListener onCardSelectedListener;
 
@@ -129,20 +129,34 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
     public void onPageSelected(int position) {
         int oldPosition = pager.getCurrentPosition();
         pager.setCurrentPosition(position);
+
+        ECBackgroundView.AnimationDirection direction = null;
+        int nextPositionPrediction = position;
+        if (oldPosition < position) {
+            direction = ECBackgroundView.AnimationDirection.LEFT;
+            nextPositionPrediction++;
+        } else if (oldPosition > position) {
+            direction = ECBackgroundView.AnimationDirection.RIGHT;
+            nextPositionPrediction--;
+        }
+
         if (attachedImageSwitcher != null) {
             attachedImageSwitcher.setReverseDrawOrder(attachedImageSwitcher.getDisplayedChild() == 1);
-            Drawable newBackgroundDrawable = pager.getDataFromAdapterDataset(position).getMainBgImageDrawable();
-            if (oldPosition < position) {
-                attachedImageSwitcher.setImageDrawableWithAnimation(newBackgroundDrawable, ECBackgroundView.AnimationDirection.LEFT);
+
+            // change current image from cache or reinitialize it from resource
+            BackgroundBitmapCache instance = BackgroundBitmapCache.getInstance();
+            if (instance.getBitmapFromBgMemCache(position) != null) {
+                attachedImageSwitcher.updateCurrentBackground(pager, direction);
+            } else {
+                attachedImageSwitcher.updateCurrentBackgroundAsync(pager, direction);
             }
-            if (oldPosition > position) {
-                attachedImageSwitcher.setImageDrawableWithAnimation(newBackgroundDrawable, ECBackgroundView.AnimationDirection.RIGHT);
-            }
+            // change background on next predicted position
+            attachedImageSwitcher.cacheBackgroundAtPosition(pager, nextPositionPrediction);
         }
         if (onCardSelectedListener != null)
             onCardSelectedListener.cardSelected(oldPosition, position);
-
     }
+
 
     @Override
     public void onPageScrollStateChanged(int state) {
@@ -176,10 +190,29 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         if (attachedImageSwitcher == null) return this;
         ECPagerViewAdapter adapter = (ECPagerViewAdapter) this.pager.getAdapter();
         if (adapter != null && adapter.getDataset() != null && adapter.getDataset().size() > 1) {
-            attachedImageSwitcher.setImageDrawable(adapter.getDataset().get(this.pager.getCurrentPosition()).getMainBgImageDrawable());
+//            int currentPosition = pager.getCurrentPosition();
+//            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), pager.getDataFromAdapterDataset(currentPosition).getMainBgImageDrawableResource());
+//            BackgroundBitmapCache.getInstance().addBitmapToBgMemoryCache(currentPosition, bitmap);
+//            attachedImageSwitcher.setImageBitmapWithAnimation(bitmap, null);
+            attachedImageSwitcher.updateCurrentBackground(pager, null);
+
+        }
+
+        return this;
+    }
+
+    public ECPagerView withPagerViewAdapter(ECPagerViewAdapter adapter) {
+        this.pager.setAdapter(adapter);
+        List<ECCardData> dataset = adapter.getDataset();
+        if (dataset != null && dataset.size() > 1 && attachedImageSwitcher != null) {
+//            int currentPosition = pager.getCurrentPosition();
+//            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), pager.getDataFromAdapterDataset(currentPosition).getMainBgImageDrawableResource());
+//            BackgroundBitmapCache.getInstance().addBitmapToBgMemoryCache(currentPosition, bitmap);
+            attachedImageSwitcher.updateCurrentBackground(pager, null);
         }
         return this;
     }
+
 
     public ECPagerView withCardSize(int cardWidth, int cardHeight) {
         this.cardWidth = cardWidth;
@@ -193,14 +226,6 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         return this;
     }
 
-    public ECPagerView withPagerViewAdapter(ECPagerViewAdapter adapter) {
-        this.pager.setAdapter(adapter);
-        List<ECCardData> dataset = adapter.getDataset();
-        if (dataset != null && dataset.size() > 1 && attachedImageSwitcher != null) {
-            attachedImageSwitcher.setImageDrawable(dataset.get(0).getMainBgImageDrawable());
-        }
-        return this;
-    }
 
     public int getCardWidth() {
         return cardWidth;

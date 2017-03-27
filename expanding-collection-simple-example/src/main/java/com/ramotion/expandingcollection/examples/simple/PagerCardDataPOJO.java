@@ -1,5 +1,6 @@
 package com.ramotion.expandingcollection.examples.simple;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import com.ramotion.expandingcollection.ECCardData;
@@ -11,8 +12,12 @@ import java.util.Random;
 public class PagerCardDataPOJO implements ECCardData<CommentPOJO> {
 
     private String headTitle;
-    private Drawable headBgImageDrawable;
-    private Drawable mainBgImageDrawable;
+
+    private BitmapDrawable headBgImageDrawable;
+    private BitmapDrawable mainBgImageDrawable;
+
+    private Integer headBgImageDrawableResource;
+    private Integer mainBgImageDrawableResource;
 
     private Drawable personPicture;
     private String personName;
@@ -38,25 +43,39 @@ public class PagerCardDataPOJO implements ECCardData<CommentPOJO> {
     }
 
     @Override
-    public Drawable getMainBgImageDrawable() {
+    public BitmapDrawable getHeadBgImageDrawable() {
         return headBgImageDrawable;
     }
 
-    @Override
-    public Drawable getHeadBgImageDrawable() {
-        return headBgImageDrawable;
-    }
-
-    public void setBgImageDrawable(Drawable bgImageDrawable) {
-        this.headBgImageDrawable = bgImageDrawable;
-    }
-
-    public void setHeadBgImageDrawable(Drawable headBgImageDrawable) {
+    public void setHeadBgImageDrawable(BitmapDrawable headBgImageDrawable) {
         this.headBgImageDrawable = headBgImageDrawable;
     }
 
-    public void setMainBgImageDrawable(Drawable mainBgImageDrawable) {
+    @Override
+    public BitmapDrawable getMainBgImageDrawable() {
+        return mainBgImageDrawable;
+    }
+
+    public void setMainBgImageDrawable(BitmapDrawable mainBgImageDrawable) {
         this.mainBgImageDrawable = mainBgImageDrawable;
+    }
+
+    @Override
+    public Integer getHeadBgImageDrawableResource() {
+        return headBgImageDrawableResource;
+    }
+
+    public void setHeadBgImageDrawableResource(Integer headBgImageDrawableResource) {
+        this.headBgImageDrawableResource = headBgImageDrawableResource;
+    }
+
+    @Override
+    public Integer getMainBgImageDrawableResource() {
+        return mainBgImageDrawableResource;
+    }
+
+    public void setMainBgImageDrawableResource(Integer mainBgImageDrawableResource) {
+        this.mainBgImageDrawableResource = mainBgImageDrawableResource;
     }
 
     public Drawable getPersonPicture() {

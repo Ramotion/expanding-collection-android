@@ -2,7 +2,9 @@ package com.ramotion.expandingcollection;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -30,8 +32,10 @@ public class ECPagerCardHead extends FrameLayout {
     }
 
     public void init(Context context) {
-        headBackgroundImageView = new TopCropImageView(context);
-        headBackgroundImageView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
+//        headBackgroundImageView = new TopCropImageView(context);
+        headBackgroundImageView = new ImageView(context);
+        headBackgroundImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        headBackgroundImageView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT));
         this.addView(headBackgroundImageView);
     }
 
@@ -48,6 +52,16 @@ public class ECPagerCardHead extends FrameLayout {
     protected void setHeadImageDrawable(Drawable headImageDrawable) {
         if (this.headBackgroundImageView != null)
             this.headBackgroundImageView.setImageDrawable(headImageDrawable);
+    }
+
+    protected void setHeadImageDrawable(@DrawableRes int headImageDrawableRes) {
+        if (this.headBackgroundImageView != null)
+            this.headBackgroundImageView.setImageResource(headImageDrawableRes);
+    }
+
+    protected void setHeadImageBitmap(Bitmap headImageBitmap) {
+        if (this.headBackgroundImageView != null)
+            this.headBackgroundImageView.setImageBitmap(headImageBitmap);
     }
 
     protected void animateHeight(int targetHeight, int duration, int delay) {

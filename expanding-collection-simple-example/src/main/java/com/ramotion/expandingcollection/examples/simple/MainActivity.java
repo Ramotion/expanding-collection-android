@@ -1,10 +1,16 @@
 package com.ramotion.expandingcollection.examples.simple;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +35,7 @@ import ramotion.com.expandingcollection.examples.simple.R;
 // Simple example of usage expanding collection library
 public class MainActivity extends FragmentActivity {
 
+    private final String TAG = "MainEx";
     private ECPagerView ecPagerView;
 
     @Override
@@ -43,6 +50,7 @@ public class MainActivity extends FragmentActivity {
         display.getSize(displaySize);
         setContentView(R.layout.activity_main);
 
+        Log.e(TAG, "Display sizes is " + displaySize.x + " to " + displaySize.y);
         // Prepare example dataset with cute penguins images
         List<ECCardData> exampleDataSet = getExampleDataSet(displaySize.x, displaySize.y);
 
@@ -98,8 +106,8 @@ public class MainActivity extends FragmentActivity {
 
         // Tune pager view
         ecPagerView
-                .withCardSize(500, 550)
-                .withCardExpandedHeaderHeight(450)
+                .withCardSize((int) (displaySize.x * 0.7), (int) (displaySize.y * 0.45))
+                .withCardExpandedHeaderHeight((int) (displaySize.y * 0.35))
                 .withBackgroundImageSwitcher(bgView)
                 .withPagerViewAdapter(adapter);
     }
@@ -114,47 +122,52 @@ public class MainActivity extends FragmentActivity {
         List<ECCardData> dataset = new ArrayList<>();
 
         PagerCardDataPOJO item5 = new PagerCardDataPOJO();
-        item5.setBgImageDrawable(placePenguin(imageWidth, imageHeight));
-        item5.setHeadTitle("FiftH");
+        item5.setMainBgImageDrawableResource(R.drawable.attractions);
+        item5.setHeadBgImageDrawableResource(R.drawable.attractions_head);
+        item5.setHeadTitle("Attractions");
         item5.setPersonMessage("Vae, nix!");
         item5.setPersonName("Frederich Nilson");
-        item5.setPersonPicture(placePenguin(100, 100));
+        item5.setPersonPicture(getResources().getDrawable(R.drawable.m5));
         item5.setComments(prepareCommentsArray());
         dataset.add(item5);
 
         PagerCardDataPOJO item4 = new PagerCardDataPOJO();
-        item4.setBgImageDrawable(placePenguin(imageWidth, imageHeight));
-        item4.setHeadTitle("FOurTH");
+        item4.setMainBgImageDrawableResource(R.drawable.cityscape);
+        item4.setHeadBgImageDrawableResource(R.drawable.cityscape_head);
+        item4.setHeadTitle("city Scape");
         item4.setPersonMessage("Celery can be covered with heated peanut butter.");
         item4.setPersonName("Peter Jackson");
-        item4.setPersonPicture(placePenguin(100, 100));
+        item4.setPersonPicture(getResources().getDrawable(R.drawable.f4));
         item4.setComments(prepareCommentsArray());
         dataset.add(item4);
 
         PagerCardDataPOJO item3 = new PagerCardDataPOJO();
-        item3.setBgImageDrawable(placePenguin(imageWidth, imageHeight));
-        item3.setHeadTitle("AWESOMENESS");
+        item3.setMainBgImageDrawableResource(R.drawable.cuisine);
+        item3.setHeadBgImageDrawableResource(R.drawable.cuisine_head);
+        item3.setHeadTitle("Cuisine");
         item3.setPersonMessage("Nanomachine of a clear advice, deserve the sonic shower!");
         item3.setPersonName("Fedor Bondarchuk");
-        item3.setPersonPicture(placePenguin(100, 100));
+        item3.setPersonPicture(getResources().getDrawable(R.drawable.m3));
         item3.setComments(prepareCommentsArray());
         dataset.add(item3);
 
         PagerCardDataPOJO item2 = new PagerCardDataPOJO();
-        item2.setBgImageDrawable(placePenguin(imageWidth, imageHeight));
-        item2.setHeadTitle("LANDMARK");
+        item2.setMainBgImageDrawableResource(R.drawable.nature);
+        item2.setHeadBgImageDrawableResource(R.drawable.nature_head);
+        item2.setHeadTitle("Nature");
         item2.setPersonName("James Parkinson");
         item2.setPersonMessage("Whales scream on fortune at port royal!");
         item2.setComments(prepareCommentsArray());
-        item2.setPersonPicture(placePenguin(100, 100));
+        item2.setPersonPicture(getResources().getDrawable(R.drawable.f2));
         dataset.add(item2);
 
         PagerCardDataPOJO item1 = new PagerCardDataPOJO();
-        item1.setBgImageDrawable(placePenguin(imageWidth, imageHeight));
-        item1.setHeadTitle("Cuisine");
+        item1.setMainBgImageDrawableResource(R.drawable.nightlife);
+        item1.setHeadBgImageDrawableResource(R.drawable.nightlife_head);
+        item1.setHeadTitle("Night Life");
         item1.setPersonMessage("Crescere satis ducunt ad teres terror.");
         item1.setPersonName("Peter Robinson");
-        item1.setPersonPicture(placePenguin(100, 100));
+        item1.setPersonPicture(getResources().getDrawable(R.drawable.f1));
         item1.setComments(prepareCommentsArray());
         dataset.add(item1);
 
@@ -174,10 +187,10 @@ public class MainActivity extends FragmentActivity {
                 new CommentPOJO(getResources().getDrawable(R.drawable.m5), "David Gibson", "When the queen experiments for nowhere, all particles control reliable, cold captains.", "13 nov. 1964"));
     }
 
-    public Drawable placePenguin(int w, int h) {
+    public BitmapDrawable placePenguin(int w, int h) {
         try {
             InputStream is = (InputStream) new URL("http://placepenguin.com/" + w + "/" + h + "?" + System.currentTimeMillis()).getContent();
-            return Drawable.createFromStream(is, "place the penguin");
+            return (BitmapDrawable) BitmapDrawable.createFromStream(is, "place the penguin");
         } catch (Exception e) {
             return null;
         }
