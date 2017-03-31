@@ -13,11 +13,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 public class ECPager extends ViewPager {
-    public static final String TAG = "ecview";
-
-    private int currentPosition = 0;
-
-    private boolean pagingEnabled = true;
+    private int currentPosition;
+    private boolean pagingDisabled;
 
     public ECPager(Context context) {
         super(context);
@@ -31,16 +28,17 @@ public class ECPager extends ViewPager {
 
     private void init() {
         this.setOffscreenPageLimit(3);
+        this.setOverScrollMode(OVER_SCROLL_NEVER);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return this.pagingEnabled && super.onTouchEvent(event);
+        return !this.pagingDisabled && super.onTouchEvent(event);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        return this.pagingEnabled && super.onInterceptTouchEvent(event);
+        return !this.pagingDisabled && super.onInterceptTouchEvent(event);
     }
 
     public void updateLayoutDimensions(int cardWidth, int cardHeight) {
@@ -54,11 +52,11 @@ public class ECPager extends ViewPager {
     }
 
     public void enablePaging() {
-        this.pagingEnabled = true;
+        this.pagingDisabled = false;
     }
 
     public void disablePaging() {
-        this.pagingEnabled = false;
+        this.pagingDisabled = true;
     }
 
     @Override
@@ -114,14 +112,6 @@ public class ECPager extends ViewPager {
         super.onPageScrolled(position, offset, offsetPixels);
     }
 
-    public int getCurrentPosition() {
-        return currentPosition;
-    }
-
-    public void setCurrentPosition(int currentPosition) {
-        this.currentPosition = currentPosition;
-    }
-
     public boolean expand() {
         ECPagerViewAdapter adapter = (ECPagerViewAdapter) getAdapter();
         return adapter.getActiveCard().expand();
@@ -135,5 +125,13 @@ public class ECPager extends ViewPager {
     public boolean toggle() {
         ECPagerViewAdapter adapter = (ECPagerViewAdapter) getAdapter();
         return adapter.getActiveCard().toggle();
+    }
+
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
     }
 }

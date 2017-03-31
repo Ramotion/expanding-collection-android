@@ -19,27 +19,20 @@ import java.util.List;
 
 import ramotion.com.expandingcollection.R;
 
-
-/**
- * Pager container for simulate needed pager behavior - show parts of nearby pager elements
- */
 public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeListener {
-    public static final String TAG = "ecview";
-
     private ECPager pager;
-    private boolean needsRedraw = false;
+    private ECBackgroundView attachedImageSwitcher;
+    private OnCardSelectedListener onCardSelectedListener;
+
+    private boolean needsRedraw;
+    private int nextTopMargin = 0;
+
     private Point center = new Point();
     private Point initialTouch = new Point();
-    private ECBackgroundView attachedImageSwitcher;
 
     private Integer cardWidth;
     private Integer cardHeight;
-    private Integer cardHeaderHeightExpanded;
-
-    private int nextTopMargin = 0;
-
-
-    private OnCardSelectedListener onCardSelectedListener;
+    private Integer cardHeaderExpandedHeight;
 
     public ECPagerView(Context context) {
         super(context);
@@ -61,9 +54,9 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
     protected void initializeFromAttributes(Context context, AttributeSet attrs) {
         TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ExpandingCollection, 0, 0);
         try {
-            this.cardWidth = array.getInt(R.styleable.ExpandingCollection_cardWidth, 400);
-            this.cardHeight = array.getColor(R.styleable.ExpandingCollection_cardHeight, 300);
-            this.cardHeaderHeightExpanded = array.getInt(R.styleable.ExpandingCollection_cardHeaderHeightExpanded, 300);
+            this.cardWidth = array.getDimensionPixelSize(R.styleable.ExpandingCollection_cardWidth, 500);
+            this.cardHeight = array.getDimensionPixelSize(R.styleable.ExpandingCollection_cardHeight, 550);
+            this.cardHeaderExpandedHeight = array.getDimensionPixelSize(R.styleable.ExpandingCollection_cardHeaderHeightExpanded, 450);
         } finally {
             array.recycle();
         }
@@ -105,7 +98,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        //We capture any touches not already handled by the ViewPager
+        // We capture any touches not already handled by the ViewPager
         // to implement scrolling from a touch outside the pager bounds.
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -154,9 +147,8 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
             attachedImageSwitcher.cacheBackgroundAtPosition(pager, nextPositionPrediction);
         }
         if (onCardSelectedListener != null)
-            onCardSelectedListener.cardSelected(oldPosition, position);
+            onCardSelectedListener.cardSelected(position, oldPosition, pager.getAdapter().getCount());
     }
-
 
     @Override
     public void onPageScrollStateChanged(int state) {
@@ -165,9 +157,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
 
     protected void toggleTopMargin(int duration, int delay) {
         final RelativeLayout.LayoutParams containerLayoutParams = (RelativeLayout.LayoutParams) this.getLayoutParams();
-
         int currentTopMargin = containerLayoutParams.topMargin;
-
         ValueAnimator marginAnimation = new ValueAnimator();
         marginAnimation.setInterpolator(new DecelerateInterpolator());
         marginAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -177,7 +167,6 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
                 ECPagerView.this.setLayoutParams(containerLayoutParams);
             }
         });
-
         marginAnimation.setIntValues(containerLayoutParams.topMargin, nextTopMargin);
         marginAnimation.setDuration(duration);
         marginAnimation.setStartDelay(delay);
@@ -185,47 +174,40 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         nextTopMargin = currentTopMargin;
     }
 
-    public ECPagerView withBackgroundImageSwitcher(ECBackgroundView imageSwitcher) {
+    public void setBackgroundImageSwitcher(ECBackgroundView imageSwitcher) {
         this.attachedImageSwitcher = imageSwitcher;
-        if (attachedImageSwitcher == null) return this;
+        if (imageSwitcher == null) return;
         ECPagerViewAdapter adapter = (ECPagerViewAdapter) this.pager.getAdapter();
         if (adapter != null && adapter.getDataset() != null && adapter.getDataset().size() > 1) {
-//            int currentPosition = pager.getCurrentPosition();
-//            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), pager.getDataFromAdapterDataset(currentPosition).getMainBgImageDrawableResource());
-//            BackgroundBitmapCache.getInstance().addBitmapToBgMemoryCache(currentPosition, bitmap);
-//            attachedImageSwitcher.setImageBitmapWithAnimation(bitmap, null);
             attachedImageSwitcher.updateCurrentBackground(pager, null);
-
         }
-
-        return this;
     }
 
-    public ECPagerView withPagerViewAdapter(ECPagerViewAdapter adapter) {
+    public void setPagerViewAdapter(ECPagerViewAdapter adapter) {
         this.pager.setAdapter(adapter);
+        if (adapter == null) return;
         List<ECCardData> dataset = adapter.getDataset();
         if (dataset != null && dataset.size() > 1 && attachedImageSwitcher != null) {
-//            int currentPosition = pager.getCurrentPosition();
-//            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), pager.getDataFromAdapterDataset(currentPosition).getMainBgImageDrawableResource());
-//            BackgroundBitmapCache.getInstance().addBitmapToBgMemoryCache(currentPosition, bitmap);
             attachedImageSwitcher.updateCurrentBackground(pager, null);
         }
-        return this;
+        if (pager.getAdapter() != null && onCardSelectedListener != null)
+            onCardSelectedListener.cardSelected(pager.getCurrentPosition(), pager.getCurrentPosition(), pager.getAdapter().getCount());
     }
 
-
-    public ECPagerView withCardSize(int cardWidth, int cardHeight) {
+    public void setAttributes(int cardWidth, int cardHeight, int cardHeaderExpandedHeight) {
         this.cardWidth = cardWidth;
         this.cardHeight = cardHeight;
+        this.cardHeaderExpandedHeight = cardHeaderExpandedHeight;
         this.pager.updateLayoutDimensions(cardWidth, cardHeight);
-        return this;
     }
 
-    public ECPagerView withCardExpandedHeaderHeight(int cardHeaderHeightExpanded) {
-        this.cardHeaderHeightExpanded = cardHeaderHeightExpanded;
-        return this;
-    }
+    public void setOnCardSelectedListener(OnCardSelectedListener listener) {
+        this.onCardSelectedListener = listener;
+        if (listener == null) return;
+        if (pager.getAdapter() != null)
+            onCardSelectedListener.cardSelected(pager.getCurrentPosition(), pager.getCurrentPosition(), pager.getAdapter().getCount());
 
+    }
 
     public int getCardWidth() {
         return cardWidth;
@@ -235,8 +217,8 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         return cardHeight;
     }
 
-    public int getCardHeaderHeightExpanded() {
-        return cardHeaderHeightExpanded;
+    public int getCardHeaderExpandedHeight() {
+        return cardHeaderExpandedHeight;
     }
 
     public boolean expand() {
@@ -252,8 +234,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
     }
 
     public interface OnCardSelectedListener {
-
-        void cardSelected(int oldPosition, int newPosition);
+        void cardSelected(int newPosition, int oldPosition, int totalElements);
     }
 
 }

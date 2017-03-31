@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ramotion.expandingcollection.ECCardContentListAdapter;
+import com.ramotion.expandingcollection.ECCardContentListItemAdapter;
 
 import java.util.List;
 
 import ramotion.com.expandingcollection.examples.simple.R;
 
-public class CommentsArrayAdapter extends ECCardContentListAdapter<CommentPOJO> {
+public class CommentArrayAdapter extends ECCardContentListItemAdapter<Comment> {
 
-    public CommentsArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<CommentPOJO> objects) {
+    public CommentArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Comment> objects) {
         super(context, resource, objects);
     }
 
@@ -39,6 +39,7 @@ public class CommentsArrayAdapter extends ECCardContentListAdapter<CommentPOJO> 
             rowView = inflater.inflate(R.layout.list_element, null);
             // configure view holder
             viewHolder = new ViewHolder();
+            viewHolder.date = (TextView) rowView.findViewById(R.id.firstLineDate);
             viewHolder.line1 = (TextView) rowView.findViewById(R.id.firstLine);
             viewHolder.line2 = (TextView) rowView.findViewById(R.id.secondLine);
             viewHolder.icon = (ImageView) rowView.findViewById(R.id.icon);
@@ -47,18 +48,18 @@ public class CommentsArrayAdapter extends ECCardContentListAdapter<CommentPOJO> 
             viewHolder = (ViewHolder) rowView.getTag();
         }
 
-        CommentPOJO objectItem = getItem(position);
-
+        Comment objectItem = getItem(position);
         if (objectItem != null) {
             viewHolder.line1.setText(objectItem.getCommentPersonName() + ":");
             viewHolder.line2.setText(objectItem.getCommentText());
-            viewHolder.icon.setImageDrawable(objectItem.getCommentPersonPicture());
+            viewHolder.date.setText(objectItem.getCommentDate());
+            viewHolder.icon.setImageResource(objectItem.getCommentPersonPictureRes());
         }
-
         return rowView;
     }
 
     static class ViewHolder {
+        TextView date;
         TextView line1;
         TextView line2;
         ImageView icon;

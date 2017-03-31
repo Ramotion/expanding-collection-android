@@ -1,33 +1,34 @@
 package com.ramotion.expandingcollection.examples.simple;
 
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 
 import com.ramotion.expandingcollection.ECCardData;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-public class PagerCardDataPOJO implements ECCardData<CommentPOJO> {
+public class CardData implements ECCardData<Comment> {
 
     private String headTitle;
 
-    private BitmapDrawable headBgImageDrawable;
-    private BitmapDrawable mainBgImageDrawable;
+    private BitmapDrawable headBackgroundDrawable;
+    private BitmapDrawable mainBackgroundDrawable;
 
-    private Integer headBgImageDrawableResource;
-    private Integer mainBgImageDrawableResource;
+    private Integer headBackgroundResource;
+    private Integer mainBackgroundResource;
 
-    private Drawable personPicture;
+    @DrawableRes
+    private Integer personPicture;
+
     private String personName;
     private String personMessage;
     private int personViewsCount;
     private int personCommentsCount;
     private int personLikesCount;
-    private List<CommentPOJO> comments;
+    private List<Comment> listItems;
 
-    public PagerCardDataPOJO() {
+    public CardData() {
         Random rnd = new Random();
         this.personViewsCount = 50 + rnd.nextInt(950);
         this.personCommentsCount = 35 + rnd.nextInt(170);
@@ -42,47 +43,43 @@ public class PagerCardDataPOJO implements ECCardData<CommentPOJO> {
         this.headTitle = headTitle;
     }
 
-    @Override
-    public BitmapDrawable getHeadBgImageDrawable() {
-        return headBgImageDrawable;
+    public BitmapDrawable getHeadBackgroundDrawable() {
+        return headBackgroundDrawable;
     }
 
-    public void setHeadBgImageDrawable(BitmapDrawable headBgImageDrawable) {
-        this.headBgImageDrawable = headBgImageDrawable;
+    public void setHeadBackgroundDrawable(BitmapDrawable headBackgroundDrawable) {
+        this.headBackgroundDrawable = headBackgroundDrawable;
     }
 
-    @Override
-    public BitmapDrawable getMainBgImageDrawable() {
-        return mainBgImageDrawable;
+    public BitmapDrawable getMainBackgroundDrawable() {
+        return mainBackgroundDrawable;
     }
 
-    public void setMainBgImageDrawable(BitmapDrawable mainBgImageDrawable) {
-        this.mainBgImageDrawable = mainBgImageDrawable;
+    public void setMainBackgroundDrawable(BitmapDrawable mainBackgroundDrawable) {
+        this.mainBackgroundDrawable = mainBackgroundDrawable;
     }
 
-    @Override
-    public Integer getHeadBgImageDrawableResource() {
-        return headBgImageDrawableResource;
+    public Integer getHeadBackgroundResource() {
+        return headBackgroundResource;
     }
 
-    public void setHeadBgImageDrawableResource(Integer headBgImageDrawableResource) {
-        this.headBgImageDrawableResource = headBgImageDrawableResource;
+    public void setHeadBackgroundResource(Integer headBackgroundResource) {
+        this.headBackgroundResource = headBackgroundResource;
     }
 
-    @Override
-    public Integer getMainBgImageDrawableResource() {
-        return mainBgImageDrawableResource;
+    public Integer getMainBackgroundResource() {
+        return mainBackgroundResource;
     }
 
-    public void setMainBgImageDrawableResource(Integer mainBgImageDrawableResource) {
-        this.mainBgImageDrawableResource = mainBgImageDrawableResource;
+    public void setMainBackgroundResource(Integer mainBackgroundResource) {
+        this.mainBackgroundResource = mainBackgroundResource;
     }
 
-    public Drawable getPersonPicture() {
+    public Integer getPersonPicture() {
         return personPicture;
     }
 
-    public void setPersonPicture(Drawable personPicture) {
+    public void setPersonPicture(Integer personPicture) {
         this.personPicture = personPicture;
     }
 
@@ -127,11 +124,11 @@ public class PagerCardDataPOJO implements ECCardData<CommentPOJO> {
     }
 
     @Override
-    public List<CommentPOJO> getComments() {
-        return comments;
+    public List<Comment> getListItems() {
+        return listItems;
     }
 
-    public void setComments(List<CommentPOJO> comments) {
-        this.comments = comments;
+    public void setListItems(List<Comment> listItems) {
+        this.listItems = listItems;
     }
 }

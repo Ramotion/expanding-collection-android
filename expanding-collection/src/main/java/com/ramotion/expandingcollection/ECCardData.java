@@ -9,16 +9,15 @@ import java.util.Collection;
 
 public interface ECCardData<T> {
 
+    @DrawableRes
+    Integer getMainBackgroundResource();
+
+    BitmapDrawable getMainBackgroundDrawable();
 
     @DrawableRes
-    Integer getMainBgImageDrawableResource();
+    Integer getHeadBackgroundResource();
 
-    BitmapDrawable getMainBgImageDrawable();
+    BitmapDrawable getHeadBackgroundDrawable();
 
-    @DrawableRes
-    Integer getHeadBgImageDrawableResource();
-
-    BitmapDrawable getHeadBgImageDrawable();
-
-    Collection<T> getComments();
+    Collection<T> getListItems();
 }

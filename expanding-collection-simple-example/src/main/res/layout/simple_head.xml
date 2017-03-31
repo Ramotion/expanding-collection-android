@@ -42,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@id/avatar"
             android:layout_toRightOf="@id/avatar"
             android:textAppearance="@style/cardItemComment" />
@@ -53,52 +54,45 @@
             android:layout_alignStart="@id/message"
             android:layout_below="@id/message"
             android:layout_marginTop="5dp"
-            android:gravity="top"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/socialViewsCountIcon"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@android:color/holo_orange_light" />
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/btn_view" />
 
             <TextView
                 android:id="@+id/socialViewsCount"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/socialCommentsCountIcon"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginStart="10dp"
-                android:background="@android:color/holo_green_light" />
+                android:src="@drawable/btn_comment" />
 
             <TextView
                 android:id="@+id/socialCommentsCount"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:id="@+id/socialLikesCountIcon"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_marginLeft="10dp"
-
-                android:layout_marginRight="5dp"
                 android:layout_marginStart="10dp"
-                android:background="@android:color/holo_red_light" />
+                android:src="@drawable/btn_like" />
 
             <TextView
                 android:id="@+id/socialLikesCount"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

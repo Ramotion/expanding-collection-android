@@ -10,7 +10,6 @@ import android.widget.FrameLayout;
 public class ECPagerCard extends FrameLayout {
 
     private ECPagerCardContentList ecPagerCardContentList;
-
     private boolean animationInProgress;
     private boolean cardExpanded;
 
@@ -35,10 +34,6 @@ public class ECPagerCard extends FrameLayout {
         } catch (Exception e) {
             throw new IllegalStateException("Invalid children element in ECPagerCard.");
         }
-    }
-
-    public ECPagerCardContentList getEcPagerCardContentList() {
-        return ecPagerCardContentList;
     }
 
     public boolean expand() {
@@ -72,7 +67,7 @@ public class ECPagerCard extends FrameLayout {
         ecPagerCardContentList.animateWidth(expandedCardWidth, cardAnimDuration, cardAnimDelay);
         pagerView.toggleTopMargin(cardAnimDuration, cardAnimDelay);
         pager.animateHeight(expandedCardHeight, cardAnimDuration, cardAnimDelay, onAnimationEnd);
-        ecPagerCardContentList.getHeadView().animateHeight(pagerView.getCardHeaderHeightExpanded(), cardAnimDuration, cardAnimDelay);
+        ecPagerCardContentList.getHeadView().animateHeight(pagerView.getCardHeaderExpandedHeight(), cardAnimDuration, cardAnimDelay);
         ecPagerCardContentList.showListElements();
         return true;
     }
@@ -116,5 +111,9 @@ public class ECPagerCard extends FrameLayout {
         if (cardExpanded)
             return collapse();
         else return expand();
+    }
+
+    public ECPagerCardContentList getEcPagerCardContentList() {
+        return ecPagerCardContentList;
     }
 }

@@ -10,10 +10,10 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
-public abstract class ECCardContentListAdapter<T> extends ArrayAdapter<T> {
+public abstract class ECCardContentListItemAdapter<T> extends ArrayAdapter<T> {
     private boolean zeroItemsMode = true;
 
-    public ECCardContentListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<T> objects) {
+    public ECCardContentListItemAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<T> objects) {
         super(context, resource, objects);
     }
 

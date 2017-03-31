@@ -35,10 +35,9 @@ public abstract class ECPagerViewAdapter extends PagerAdapter {
 
         headView.setHeight(pagerContainer.getCardHeight());
 
-
-        Bitmap bitmap = dataset.get(position).getHeadBgImageDrawable() == null ? null : dataset.get(position).getHeadBgImageDrawable().getBitmap();
+        Bitmap bitmap = dataset.get(position).getHeadBackgroundDrawable() == null ? null : dataset.get(position).getHeadBackgroundDrawable().getBitmap();
         if (bitmap == null) {
-            Integer drawableRes = dataset.get(position).getHeadBgImageDrawableResource();
+            Integer drawableRes = dataset.get(position).getHeadBackgroundResource();
             if (drawableRes != null) {
                 headView.setHeadImageBitmap(BitmapFactory.decodeResource(pagerContainer.getResources(), drawableRes, new BitmapFactoryOptions()));
             }

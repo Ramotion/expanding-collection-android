@@ -6,11 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import ramotion.com.expandingcollection.R;
 
 public class ECPagerCardHead extends FrameLayout {
 
@@ -35,7 +38,9 @@ public class ECPagerCardHead extends FrameLayout {
 //        headBackgroundImageView = new TopCropImageView(context);
         headBackgroundImageView = new ImageView(context);
         headBackgroundImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        headBackgroundImageView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT));
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT);
+        headBackgroundImageView.setLayoutParams(params);
+
         this.addView(headBackgroundImageView);
     }
 

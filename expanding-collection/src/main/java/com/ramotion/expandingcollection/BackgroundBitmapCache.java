@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.util.LruCache;
 
 public class BackgroundBitmapCache {
-
     private final String TAG = "cache_manager";
 
     private LruCache<Integer, Bitmap> mBackgroundsCache;
@@ -21,7 +20,6 @@ public class BackgroundBitmapCache {
 
     private void init() {
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-
         final int cacheSize = maxMemory / 5;
 
         mBackgroundsCache = new LruCache<Integer, Bitmap>(cacheSize) {

@@ -12,7 +12,7 @@
         android:background="@android:color/white"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@color/colorListDivider"
-        android:dividerHeight="1dp"
+        android:dividerHeight="0.5dp"
         android:listSelector="@android:color/transparent">
 
     </com.ramotion.expandingcollection.ECPagerCardContentList>

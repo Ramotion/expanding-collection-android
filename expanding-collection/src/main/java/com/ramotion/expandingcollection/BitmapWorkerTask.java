@@ -12,7 +12,6 @@ public class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
     private final Resources mResources;
     private final BackgroundBitmapCache cache;
     private final BitmapDrawable mProvidedBitmap;
-    @DrawableRes
     private final int mProvidedBitmapResId;
 
     public BitmapWorkerTask(Resources resources, BitmapDrawable providedBitmap, @DrawableRes int providedBitmapResId) {

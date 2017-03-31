@@ -15,7 +15,7 @@ public class ECPagerCardContentList extends ListView {
     private boolean scrollDisabled;
     private int mPosition;
 
-    private ECCardContentListAdapter ecArrayAdapter;
+    private ECCardContentListItemAdapter ecArrayAdapter;
 
     private ECPagerCardHead headView;
 
@@ -39,13 +39,14 @@ public class ECPagerCardContentList extends ListView {
         headView.setBackgroundColor(Color.RED);
         headView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
         addHeaderView(headView);
+        this.setOverScrollMode(OVER_SCROLL_NEVER);
     }
 
-    public ECCardContentListAdapter getEcArrayAdapter() {
+    public ECCardContentListItemAdapter getEcArrayAdapter() {
         return ecArrayAdapter;
     }
 
-    public void setEcArrayAdapter(ECCardContentListAdapter ecArrayAdapter) {
+    public void setEcArrayAdapter(ECCardContentListItemAdapter ecArrayAdapter) {
         setAdapter(ecArrayAdapter);
         this.ecArrayAdapter = ecArrayAdapter;
     }
@@ -53,23 +54,19 @@ public class ECPagerCardContentList extends ListView {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         final int actionMasked = ev.getActionMasked() & MotionEvent.ACTION_MASK;
-
         // Ignore move events if scroll disabled
         if (scrollDisabled && actionMasked == MotionEvent.ACTION_MOVE) {
             return true;
         }
-
         // Ignore scroll events if scroll disabled
         if (scrollDisabled && actionMasked == MotionEvent.ACTION_SCROLL) {
             return true;
         }
-
         // Save the event initial position
         if (actionMasked == MotionEvent.ACTION_DOWN) {
             mPosition = pointToPosition((int) ev.getX(), (int) ev.getY());
             return super.dispatchTouchEvent(ev);
         }
-
         // Check if we are still in the same position, otherwise cancel event
         int eventPosition = pointToPosition((int) ev.getX(), (int) ev.getY());
         if (actionMasked == MotionEvent.ACTION_UP) {
@@ -77,7 +74,6 @@ public class ECPagerCardContentList extends ListView {
                 ev.setAction(MotionEvent.ACTION_CANCEL);
             }
         }
-
         return super.dispatchTouchEvent(ev);
     }
 
