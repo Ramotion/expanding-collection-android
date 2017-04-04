@@ -1,1 +1,1 @@
-include ':expanding-collection', ':expanding-collection-simple-example'
+include ':expanding-collection', ':expanding-collection-full-example', ':expanding-collection-simple-example'

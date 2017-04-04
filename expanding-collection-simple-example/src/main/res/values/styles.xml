@@ -7,53 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-    <style name="cardHeadTitle">
-        <item name="android:textColor">#ffffffff</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">1</item>
-        <item name="android:shadowDy">1</item>
-        <item name="android:shadowRadius">1</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:typeface">sans</item>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="cardItemPersonName">
-        <item name="android:textColor">#313131</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold|italic</item>
-        <item name="android:typeface">sans</item>
-    </style>
-
-    <style name="cardItemComment">
-        <item name="android:textColor">#787878</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">italic</item>
-        <item name="android:typeface">sans</item>
-    </style>
-
-    <style name="cardItemCommentDate">
-        <item name="android:textColor">#d6d6d6</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textStyle">italic</item>
-        <item name="android:typeface">sans</item>
-    </style>
-
-    <style name="positionIndicator">
-        <item name="android:textColor">#caffffff</item>
-        <item name="android:textSize">66sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:typeface">normal</item>
-        <!--<item name="android:shadowColor">#c6060606</item>-->
-        <!--<item name="android:shadowDx">0</item>-->
-        <!--<item name="android:shadowDy">0</item>-->
-        <!--<item name="android:shadowRadius">12</item>-->
-    </style>
-
-    <style name="positionIndicatorCurrent" parent="positionIndicator">
-        <item name="android:textColor">#da7c80b8</item>
-    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

@@ -33,3 +33,4 @@ obj/
 
 # files for the dex VM #
 *.dex
+libs/

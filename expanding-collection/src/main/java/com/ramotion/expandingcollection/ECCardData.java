@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.media.MediaMetadataCompat;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface ECCardData<T> {
 
@@ -19,5 +20,5 @@ public interface ECCardData<T> {
 
     BitmapDrawable getHeadBackgroundDrawable();
 
-    Collection<T> getListItems();
+    List<T> getListItems();
 }

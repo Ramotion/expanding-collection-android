@@ -21,7 +21,7 @@ import ramotion.com.expandingcollection.R;
 
 public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeListener {
     private ECPager pager;
-    private ECBackgroundView attachedImageSwitcher;
+    private ECBackgroundSwitcherView attachedImageSwitcher;
     private OnCardSelectedListener onCardSelectedListener;
 
     private boolean needsRedraw;
@@ -123,13 +123,13 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         int oldPosition = pager.getCurrentPosition();
         pager.setCurrentPosition(position);
 
-        ECBackgroundView.AnimationDirection direction = null;
+        ECBackgroundSwitcherView.AnimationDirection direction = null;
         int nextPositionPrediction = position;
         if (oldPosition < position) {
-            direction = ECBackgroundView.AnimationDirection.LEFT;
+            direction = ECBackgroundSwitcherView.AnimationDirection.LEFT;
             nextPositionPrediction++;
         } else if (oldPosition > position) {
-            direction = ECBackgroundView.AnimationDirection.RIGHT;
+            direction = ECBackgroundSwitcherView.AnimationDirection.RIGHT;
             nextPositionPrediction--;
         }
 
@@ -174,7 +174,7 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         nextTopMargin = currentTopMargin;
     }
 
-    public void setBackgroundImageSwitcher(ECBackgroundView imageSwitcher) {
+    public void setBackgroundSwitcherView(ECBackgroundSwitcherView imageSwitcher) {
         this.attachedImageSwitcher = imageSwitcher;
         if (imageSwitcher == null) return;
         ECPagerViewAdapter adapter = (ECPagerViewAdapter) this.pager.getAdapter();

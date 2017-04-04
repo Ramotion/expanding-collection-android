@@ -2,18 +2,12 @@
 
 <com.ramotion.expandingcollection.ECPagerCard xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/transparent">
+    android:layout_height="match_parent">
 
     <com.ramotion.expandingcollection.ECPagerCardContentList
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:background="@android:color/white"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@color/colorListDivider"
-        android:dividerHeight="0.5dp"
-        android:listSelector="@android:color/transparent">
+        android:layout_gravity="center_horizontal">
 
     </com.ramotion.expandingcollection.ECPagerCardContentList>
 

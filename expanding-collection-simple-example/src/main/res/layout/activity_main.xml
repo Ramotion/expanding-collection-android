@@ -4,23 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
     tools:context="com.ramotion.expandingcollection.examples.simple.MainActivity">
-
-    <com.ramotion.expandingcollection.ECBackgroundView
-        android:id="@+id/ec_bg_switcher_element"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:foreground="@drawable/background_gradient" />
-
-    <com.ramotion.expandingcollection.examples.simple.ItemsCountView
-        android:id="@+id/items_count_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:clipChildren="false"
-        android:orientation="horizontal" />
 
     <com.ramotion.expandingcollection.ECPagerView
         android:id="@+id/ec_pager_element"
