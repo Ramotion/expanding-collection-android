@@ -8,7 +8,7 @@
         android:id="@+id/list_item_text"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:background="@color/colorPrimary"
         android:textAlignment="center" />
 

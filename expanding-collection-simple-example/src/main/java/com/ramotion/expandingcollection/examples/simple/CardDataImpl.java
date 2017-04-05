@@ -1,7 +1,5 @@
 package com.ramotion.expandingcollection.examples.simple;
 
-import android.graphics.drawable.BitmapDrawable;
-
 import com.ramotion.expandingcollection.ECCardData;
 
 import java.util.ArrayList;
@@ -10,14 +8,16 @@ import java.util.List;
 
 public class CardDataImpl implements ECCardData<String> {
 
+    private String cardTitle;
     private Integer mainBackgroundResource;
     private Integer headBackgroundResource;
     private List<String> listItems;
 
-    public CardDataImpl(Integer mainBackgroundResource, Integer headBackgroundResource, List<String> listItems) {
+    public CardDataImpl(String cardTitle, Integer mainBackgroundResource, Integer headBackgroundResource, List<String> listItems) {
         this.mainBackgroundResource = mainBackgroundResource;
         this.headBackgroundResource = headBackgroundResource;
         this.listItems = listItems;
+        this.cardTitle = cardTitle;
     }
 
     @Override
@@ -26,18 +26,8 @@ public class CardDataImpl implements ECCardData<String> {
     }
 
     @Override
-    public BitmapDrawable getMainBackgroundDrawable() {
-        return null;
-    }
-
-    @Override
     public Integer getHeadBackgroundResource() {
         return headBackgroundResource;
-    }
-
-    @Override
-    public BitmapDrawable getHeadBackgroundDrawable() {
-        return null;
     }
 
     @Override
@@ -45,11 +35,15 @@ public class CardDataImpl implements ECCardData<String> {
         return listItems;
     }
 
+    public String getCardTitle() {
+        return cardTitle;
+    }
+
     public static List<ECCardData> generateExampleData() {
         List<ECCardData> list = new ArrayList<>();
-        list.add(new CardDataImpl(R.drawable.bg1, R.drawable.bg1, createItemsList("Card 1")));
-        list.add(new CardDataImpl(R.drawable.bg1, R.drawable.bg1, createItemsList("Card 2")));
-        list.add(new CardDataImpl(R.drawable.bg1, R.drawable.bg1, createItemsList("Card 3")));
+        list.add(new CardDataImpl("Card 1", R.drawable.attractions, R.drawable.attractions_head, createItemsList("Card 1")));
+        list.add(new CardDataImpl("Card 2", null, R.drawable.city_scape_head, createItemsList("Card 2")));
+        list.add(new CardDataImpl("Card 3", R.drawable.nature, R.drawable.nature_head, createItemsList("Card 3")));
         return list;
     }
 

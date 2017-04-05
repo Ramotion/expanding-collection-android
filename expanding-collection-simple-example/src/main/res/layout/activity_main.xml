@@ -6,13 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.ramotion.expandingcollection.examples.simple.MainActivity">
 
+    <com.ramotion.expandingcollection.ECBackgroundSwitcherView
+        android:id="@+id/ec_bg_switcher_element"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <com.ramotion.expandingcollection.ECPagerView
         android:id="@+id/ec_pager_element"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
-        ec:cardHeaderHeightExpanded="200dp"
-        ec:cardHeight="250dp"
+        android:layout_centerInParent="true"
+        ec:cardHeaderHeightExpanded="150dp"
+        ec:cardHeight="200dp"
         ec:cardWidth="250dp" />
 
 </RelativeLayout>

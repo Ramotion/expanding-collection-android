@@ -1,7 +1,5 @@
 package com.ramotion.expandingcollection.examples.full.pojo;
 
-import android.graphics.drawable.BitmapDrawable;
-
 import com.ramotion.expandingcollection.ECCardData;
 
 import java.util.List;
@@ -10,8 +8,6 @@ import java.util.Random;
 public class CardData implements ECCardData<Comment> {
 
     private String headTitle;
-    private BitmapDrawable headBackgroundDrawable;
-    private BitmapDrawable mainBackgroundDrawable;
     private Integer headBackgroundResource;
     private Integer mainBackgroundResource;
 
@@ -36,22 +32,6 @@ public class CardData implements ECCardData<Comment> {
 
     public void setHeadTitle(String headTitle) {
         this.headTitle = headTitle;
-    }
-
-    public BitmapDrawable getHeadBackgroundDrawable() {
-        return headBackgroundDrawable;
-    }
-
-    public void setHeadBackgroundDrawable(BitmapDrawable headBackgroundDrawable) {
-        this.headBackgroundDrawable = headBackgroundDrawable;
-    }
-
-    public BitmapDrawable getMainBackgroundDrawable() {
-        return mainBackgroundDrawable;
-    }
-
-    public void setMainBackgroundDrawable(BitmapDrawable mainBackgroundDrawable) {
-        this.mainBackgroundDrawable = mainBackgroundDrawable;
     }
 
     public Integer getHeadBackgroundResource() {

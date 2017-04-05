@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.ramotion.expandingcollection.ECBackgroundSwitcherView;
 import com.ramotion.expandingcollection.ECCardData;
 import com.ramotion.expandingcollection.ECPagerCardContentList;
+import com.ramotion.expandingcollection.ECPagerCardHead;
 import com.ramotion.expandingcollection.ECPagerView;
 import com.ramotion.expandingcollection.ECPagerViewAdapter;
 import com.ramotion.expandingcollection.examples.full.pojo.CardData;
@@ -46,7 +47,6 @@ public class MainActivity extends Activity {
                 list.setSelector(R.color.transparent);
                 list.setBackgroundColor(Color.WHITE);
                 list.setCacheColorHint(Color.TRANSPARENT);
-
 
                 // Add gradient to root header view
                 View gradient = new View(getApplicationContext());
@@ -83,11 +83,10 @@ public class MainActivity extends Activity {
             }
         };
 
-        ECBackgroundSwitcherView bgView = (ECBackgroundSwitcherView) findViewById(R.id.ec_bg_switcher_element);
         ecPagerView = (ECPagerView) findViewById(R.id.ec_pager_element);
 
         ecPagerView.setPagerViewAdapter(adapter);
-        ecPagerView.setBackgroundSwitcherView(bgView);
+        ecPagerView.setBackgroundSwitcherView((ECBackgroundSwitcherView) findViewById(R.id.ec_bg_switcher_element));
 
         final ItemsCountView itemsCountView = (ItemsCountView) findViewById(R.id.items_count_view);
         ecPagerView.setOnCardSelectedListener(new ECPagerView.OnCardSelectedListener() {
