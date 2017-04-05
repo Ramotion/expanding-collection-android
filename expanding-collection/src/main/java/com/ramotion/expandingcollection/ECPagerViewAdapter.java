@@ -12,8 +12,9 @@ import java.util.List;
 
 import ramotion.com.expandingcollection.R;
 
+import static android.R.attr.bitmap;
+
 public abstract class ECPagerViewAdapter extends PagerAdapter {
-    public static final String TAG = "ecview";
 
     private ECPagerCard activeCard;
     private List<ECCardData> dataset;
@@ -35,12 +36,9 @@ public abstract class ECPagerViewAdapter extends PagerAdapter {
 
         headView.setHeight(pagerContainer.getCardHeight());
 
-        Bitmap bitmap = dataset.get(position).getHeadBackgroundDrawable() == null ? null : dataset.get(position).getHeadBackgroundDrawable().getBitmap();
-        if (bitmap == null) {
-            Integer drawableRes = dataset.get(position).getHeadBackgroundResource();
-            if (drawableRes != null) {
-                headView.setHeadImageBitmap(BitmapFactory.decodeResource(pagerContainer.getResources(), drawableRes, new BitmapFactoryOptions()));
-            }
+        Integer drawableRes = dataset.get(position).getHeadBackgroundResource();
+        if (drawableRes != null) {
+            headView.setHeadImageBitmap(BitmapFactory.decodeResource(pagerContainer.getResources(), drawableRes, new BitmapFactoryOptions()));
         }
 
         instantiateCard(inflaterService, headView, ecPagerCardContentList, dataset.get(position));
