@@ -35,7 +35,7 @@ Maven:
 
 ## Basic usage
  ​
-1. Add background switcher `ECBackgroundSwitcherView` and main pager `ECPagerView` to your layout. `ECPagerView` always should have `match_parent` width and `wrap_content` height. Vertical position you can adjust by yourself using **alignment/gravity** or **top margin**. `ECBackgroundSwitcherView` it's just dynamic background switcher, so you probably want it to be as big as his parent.
+1. Add background switcher element `ECBackgroundSwitcherView` and main pager element `ECPagerView` to your layout. `ECPagerView` always should have `match_parent` width and `wrap_content` height. Vertical position you can adjust by yourself using **alignment/gravity** or **top margin**. `ECBackgroundSwitcherView` it's dynamic background switcher, so you probably want it to be as big as his parent.
 
 ```xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -69,7 +69,7 @@ Maven:
     ec:cardWidth="250dp" />
 ```
 
-3. Expanded card contains two parts : header part with background(initially visible when card is collapsed) and a ListView element as content(visible only when card is expanded), so you need a xml layout for list items.
+3. Expanded card contains two parts: header part with background(initially visible when card is collapsed) and a ListView element as content(visible only when card is expanded), so you need a xml layout for list items.
 
 ```xml
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -152,7 +152,7 @@ public class CardDataImpl implements ECCardData<String> {
 }
 ```
 
-6. Almost done! Last thing we need is provide our dataset to pager element through a pager adapter. It's just a implementation of abstract class `com.ramotion.expandingcollection.ECPagerViewAdapter.java` with one abstract method, so it can be easily implemented inside your activity.  
+6. Almost done! Last thing we need to do - is provide our dataset to pager element through a pager adapter. It's just a implementation of abstract class `com.ramotion.expandingcollection.ECPagerViewAdapter.java` with one abstract method, so it can be easily implemented inside your activity.  
 
 ```java
 public class MainActivity extends Activity {
