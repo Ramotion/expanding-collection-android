@@ -1,7 +1,7 @@
 # ExpandingCollection for Android
 
 ## About
-The project maintained by [app development agency](https://ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=foolding-cell-android) [Ramotion Inc.](https://ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=foolding-cell-android)
+The project is maintained by [app development agency](https://ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=foolding-cell-android) [Ramotion Inc.](https://ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=foolding-cell-android)
 See our other [open-source projects](https://github.com/ramotion) or [hire](https://ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=foolding-cell-android) us to design, develop, and grow your product.
 ​
 [![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=https://github.com/ramotion/foolding-cell-android)
@@ -35,7 +35,7 @@ Maven:
 
 ## Basic usage
  ​
-1. Add background switcher element `ECBackgroundSwitcherView` and main pager element `ECPagerView` to your layout. `ECPagerView` always should have `match_parent` width and `wrap_content` height. Vertical position you can adjust by yourself using **alignment/gravity** or **top margin**. `ECBackgroundSwitcherView` it's dynamic background switcher, so you probably want it to be as big as his parent.
+1. Add a background switcher element `ECBackgroundSwitcherView` and a main pager element `ECPagerView` to your layout. `ECPagerView` should always have `match_parent` width and `wrap_content` height. You can adjust the vertical position yourself using **alignment/gravity** or **top margin**. `ECBackgroundSwitcherView` is the dynamic background switcher, so you probably want it to be as big as its parent.
 
 ```xml
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -69,7 +69,7 @@ Maven:
     ec:cardWidth="250dp" />
 ```
 
-3. Expanded card contains two parts: header part with background(initially visible when card is collapsed) and a ListView element as content(visible only when card is expanded), so you need a xml layout for list items.
+3. Expanded card contains two parts: a header part with a background (initially visible when card is collapsed) and a ListView element as content (visible only when card is expanded), so you need an xml layout for the list items.
 
 ```xml
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -87,7 +87,7 @@ Maven:
 </FrameLayout>
 ```
 
-4. Also you need to implement a custom list adapter for list items by extending parametrized `com.ramotion.expandingcollection.ECCardContentListItemAdapter.java` class,  where `T` is type of datasource object for list items inside card, in example bellow `T` is just a string object. It's pretty straightforward implementation with common view holder pattern. 
+4. Also, you need to implement a custom list adapter for the list items by extending the parametrized `com.ramotion.expandingcollection.ECCardContentListItemAdapter.java` class,  where `T` is type of datasource object for list items inside the card. In the example below, `T` is just a string object. It's a pretty straightforward implementation with a common view holder pattern. 
 
 ```java
 public class CardListItemAdapter extends ECCardContentListItemAdapter<String> {
@@ -125,7 +125,7 @@ public class CardListItemAdapter extends ECCardContentListItemAdapter<String> {
 
 }
 ```
-5. Your data class must implement `com.ramotion.expandingcollection.ECCardData.java` interface where `T` is type of datasource object for list items inside card.
+5. Your data class must implement the `com.ramotion.expandingcollection.ECCardData.java` interface where `T` is type of datasource object for list items inside the card.
 
 ```java
 public class CardDataImpl implements ECCardData<String> {
@@ -152,7 +152,7 @@ public class CardDataImpl implements ECCardData<String> {
 }
 ```
 
-6. Almost done! Last thing we need to do - is provide our dataset to pager element through a pager adapter. It's just a implementation of abstract class `com.ramotion.expandingcollection.ECPagerViewAdapter.java` with one abstract method, so it can be easily implemented inside your activity.  
+6. Almost done! The last thing we need to do is provide our dataset to a pager element through a pager adapter. It's just an implementation of the abstract class `com.ramotion.expandingcollection.ECPagerViewAdapter.java` with one abstract method, so it can be easily implemented inside your activity.  
 
 ```java
 public class MainActivity extends Activity {
