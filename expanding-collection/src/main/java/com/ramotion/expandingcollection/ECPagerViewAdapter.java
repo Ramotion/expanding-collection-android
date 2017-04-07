@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public abstract class ECPagerViewAdapter extends PagerAdapter {
     }
 
 
-    public abstract void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ECPagerCardContentList list, ECCardData data);
+    public abstract void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ListView list, ECCardData data);
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {

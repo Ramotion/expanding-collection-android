@@ -42,7 +42,7 @@ public class CardDataImpl implements ECCardData<String> {
     public static List<ECCardData> generateExampleData() {
         List<ECCardData> list = new ArrayList<>();
         list.add(new CardDataImpl("Card 1", R.drawable.attractions, R.drawable.attractions_head, createItemsList("Card 1")));
-        list.add(new CardDataImpl("Card 2", null, R.drawable.city_scape_head, createItemsList("Card 2")));
+        list.add(new CardDataImpl("Card 2", R.drawable.city_scape, R.drawable.city_scape_head, createItemsList("Card 2")));
         list.add(new CardDataImpl("Card 3", R.drawable.nature, R.drawable.nature_head, createItemsList("Card 3")));
         return list;
     }

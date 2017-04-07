@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ramotion.expandingcollection.ECBackgroundSwitcherView;
 import com.ramotion.expandingcollection.ECCardData;
 import com.ramotion.expandingcollection.ECPagerCardContentList;
-import com.ramotion.expandingcollection.ECPagerCardHead;
 import com.ramotion.expandingcollection.ECPagerView;
 import com.ramotion.expandingcollection.ECPagerViewAdapter;
 import com.ramotion.expandingcollection.examples.full.pojo.CardData;
@@ -36,12 +36,12 @@ public class MainActivity extends Activity {
         // Create adapter for pager
         ECPagerViewAdapter adapter = new ECPagerViewAdapter(this, new ExampleDataset().getDataset()) {
             @Override
-            public void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ECPagerCardContentList list, final ECCardData data) {
+            public void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ListView list, final ECCardData data) {
                 final CardData cardData = (CardData) data;
 
                 // Create adapter for list inside a card and set adapter to card content
                 CommentArrayAdapter commentArrayAdapter = new CommentArrayAdapter(getApplicationContext(), cardData.getListItems());
-                list.setEcArrayAdapter(commentArrayAdapter);
+                list.setAdapter(commentArrayAdapter);
                 list.setDivider(getResources().getDrawable(R.drawable.list_divider));
                 list.setDividerHeight((int) pxFromDp(getApplicationContext(), 0.5f));
                 list.setSelector(R.color.transparent);

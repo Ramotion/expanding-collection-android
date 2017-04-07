@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class ECPagerCardContentList extends ListView {
@@ -15,7 +16,7 @@ public class ECPagerCardContentList extends ListView {
     private boolean scrollDisabled;
     private int mPosition;
 
-    private ECCardContentListItemAdapter ecArrayAdapter;
+    private ECCardContentListItemAdapter contentListItemAdapter;
 
     private ECPagerCardHead headView;
 
@@ -42,13 +43,16 @@ public class ECPagerCardContentList extends ListView {
 //        this.setOverScrollMode(OVER_SCROLL_NEVER);
     }
 
-    public ECCardContentListItemAdapter getEcArrayAdapter() {
-        return ecArrayAdapter;
+    public ECCardContentListItemAdapter getContentListItemAdapter() {
+        return contentListItemAdapter;
     }
 
-    public void setEcArrayAdapter(ECCardContentListItemAdapter ecArrayAdapter) {
-        setAdapter(ecArrayAdapter);
-        this.ecArrayAdapter = ecArrayAdapter;
+    @Override
+    public void setAdapter(ListAdapter adapter) {
+        super.setAdapter(adapter);
+        if (adapter instanceof ECCardContentListItemAdapter){
+            this.contentListItemAdapter = (ECCardContentListItemAdapter) adapter;
+        }
     }
 
     @Override
@@ -114,11 +118,11 @@ public class ECPagerCardContentList extends ListView {
     }
 
     protected final void hideListElements() {
-        getEcArrayAdapter().enableZeroItemsMode();
+        getContentListItemAdapter().enableZeroItemsMode();
     }
 
     protected final void showListElements() {
-        getEcArrayAdapter().disableZeroItemsMode();
+        getContentListItemAdapter().disableZeroItemsMode();
     }
 
 }
