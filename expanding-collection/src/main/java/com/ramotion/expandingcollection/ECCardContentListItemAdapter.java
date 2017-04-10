@@ -10,6 +10,11 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
+/**
+ * Must be implemented to inflate card content list items layout.
+ *
+ * @param <T> Type of items in card content list
+ */
 public abstract class ECCardContentListItemAdapter<T> extends ArrayAdapter<T> {
     private boolean zeroItemsMode = true;
 

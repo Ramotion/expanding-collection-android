@@ -15,6 +15,10 @@ import ramotion.com.expandingcollection.R;
 
 import static android.R.attr.bitmap;
 
+/**
+ * Adapter must be implemented to provide your layouts and data(that implements {@link ECCardData})
+ * to cards in {@link ECPagerView}.
+ */
 public abstract class ECPagerViewAdapter extends PagerAdapter {
 
     private ECPagerCard activeCard;

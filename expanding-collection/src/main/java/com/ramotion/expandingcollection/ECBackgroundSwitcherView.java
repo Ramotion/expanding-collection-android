@@ -18,6 +18,10 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
+/**
+ * Custom Image Switcher for display and change background images with some pretty animations.
+ * Uses different drawing orders for animation purposes.
+ */
 public class ECBackgroundSwitcherView extends ImageSwitcher {
     private final int[] REVERSE_ORDER = new int[]{1, 0};
     private final int[] NORMAL_ORDER = new int[]{0, 1};
@@ -40,7 +44,6 @@ public class ECBackgroundSwitcherView extends ImageSwitcher {
     private AnimationDirection currentAnimationDirection;
 
     private BitmapWorkerTask mCurrentAnimationTask;
-
 
     public ECBackgroundSwitcherView(Context context, AttributeSet attrs) {
         super(context, attrs);

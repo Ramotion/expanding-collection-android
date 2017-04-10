@@ -19,6 +19,9 @@ import java.util.List;
 
 import ramotion.com.expandingcollection.R;
 
+/**
+ * Root PagerView element. Wraps all logic and behavior.
+ */
 public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeListener {
     private ECPager pager;
     private ECBackgroundSwitcherView attachedImageSwitcher;

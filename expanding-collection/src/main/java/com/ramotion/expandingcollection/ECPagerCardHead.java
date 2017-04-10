@@ -15,6 +15,10 @@ import android.widget.ImageView;
 
 import ramotion.com.expandingcollection.R;
 
+/**
+ * View used to be a card head that is visible when card is collapsed. Just frame layout with background image
+ * and logic for animate height.
+ */
 public class ECPagerCardHead extends FrameLayout {
 
     private ImageView headBackgroundImageView;

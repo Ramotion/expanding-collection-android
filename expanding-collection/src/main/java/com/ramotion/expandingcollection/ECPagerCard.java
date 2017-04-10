@@ -7,6 +7,9 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+/**
+ * Pager Card it's simple container that wraps card content list and some logic for work with animations.
+ */
 public class ECPagerCard extends FrameLayout {
 
     private ECPagerCardContentList ecPagerCardContentList;

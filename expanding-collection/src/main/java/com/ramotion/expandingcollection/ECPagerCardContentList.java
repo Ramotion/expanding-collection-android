@@ -11,6 +11,9 @@ import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+/**
+ * Card content list it's main element of card content - just a list view with custom header and animations.
+ */
 public class ECPagerCardContentList extends ListView {
 
     private boolean scrollDisabled;
@@ -50,7 +53,7 @@ public class ECPagerCardContentList extends ListView {
     @Override
     public void setAdapter(ListAdapter adapter) {
         super.setAdapter(adapter);
-        if (adapter instanceof ECCardContentListItemAdapter){
+        if (adapter instanceof ECCardContentListItemAdapter) {
             this.contentListItemAdapter = (ECCardContentListItemAdapter) adapter;
         }
     }

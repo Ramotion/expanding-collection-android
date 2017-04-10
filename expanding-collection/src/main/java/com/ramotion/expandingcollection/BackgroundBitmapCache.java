@@ -3,9 +3,11 @@ package com.ramotion.expandingcollection;
 import android.graphics.Bitmap;
 import android.util.LruCache;
 
+/**
+ * LruCache for caching background bitmaps for {@link ECBackgroundSwitcherView}.
+ * Key is id of page from {@link ECPager} and value is background bitmap from provided data.
+ */
 public class BackgroundBitmapCache {
-    private final String TAG = "cache_manager";
-
     private LruCache<Integer, Bitmap> mBackgroundsCache;
 
     private static BackgroundBitmapCache instance;

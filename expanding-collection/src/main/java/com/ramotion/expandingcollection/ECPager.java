@@ -12,6 +12,11 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
+/**
+ * Custom ViewPager used as main card pager, neighborhood elements are visible due to {@link ECPagerView},
+ * so this pager element used only inside {@link ECPagerView}. Also pager can change self position and size
+ * for animation purposes.
+ */
 public class ECPager extends ViewPager {
     private int currentPosition;
     private boolean pagingDisabled;

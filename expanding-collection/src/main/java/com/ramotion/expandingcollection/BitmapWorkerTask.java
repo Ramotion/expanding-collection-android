@@ -7,6 +7,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.support.annotation.DrawableRes;
 
+/**
+ * Worker for async processing bitmaps through cache {@link BackgroundBitmapCache}
+ */
 public class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
 
     private final Resources mResources;
