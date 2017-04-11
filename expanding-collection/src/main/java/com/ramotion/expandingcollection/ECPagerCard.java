@@ -39,6 +39,11 @@ public class ECPagerCard extends FrameLayout {
         }
     }
 
+    /**
+     * Start expand animation.
+     *
+     * @return true if animation started
+     */
     public boolean expand() {
         if (animationInProgress || cardExpanded) return false;
         animationInProgress = true;
@@ -75,6 +80,11 @@ public class ECPagerCard extends FrameLayout {
         return true;
     }
 
+    /**
+     * Start collapse animation
+     *
+     * @return true if animation started
+     */
     public boolean collapse() {
         if (animationInProgress || !cardExpanded) return false;
         animationInProgress = true;
@@ -110,6 +120,11 @@ public class ECPagerCard extends FrameLayout {
         return true;
     }
 
+    /**
+     * Toggle state of card - collapse if card is expanded and otherwise
+     *
+     * @return true if animation started
+     */
     public boolean toggle() {
         if (cardExpanded)
             return collapse();

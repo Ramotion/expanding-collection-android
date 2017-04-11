@@ -20,7 +20,7 @@ import java.util.List;
 import ramotion.com.expandingcollection.R;
 
 /**
- * Root PagerView element. Wraps all logic and behavior.
+ * Root PagerView element. Wraps all logic, animations and behavior.
  */
 public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeListener {
     private ECPager pager;
@@ -177,6 +177,11 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         nextTopMargin = currentTopMargin;
     }
 
+    /**
+     * Attach {@link ECBackgroundSwitcherView} element to pager view
+     *
+     * @param imageSwitcher already inflated {@link ECBackgroundSwitcherView} element
+     */
     public void setBackgroundSwitcherView(ECBackgroundSwitcherView imageSwitcher) {
         this.attachedImageSwitcher = imageSwitcher;
         if (imageSwitcher == null) return;
@@ -186,6 +191,11 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         }
     }
 
+    /**
+     * Set {@link ECPagerViewAdapter} to pager
+     *
+     * @param adapter implementation of {@link ECPagerViewAdapter}
+     */
     public void setPagerViewAdapter(ECPagerViewAdapter adapter) {
         this.pager.setAdapter(adapter);
         if (adapter == null) return;
@@ -197,6 +207,13 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
             onCardSelectedListener.cardSelected(pager.getCurrentPosition(), pager.getCurrentPosition(), pager.getAdapter().getCount());
     }
 
+    /**
+     * Tune parameters of PagerView element.
+     *
+     * @param cardWidth                width of card in collapsed state
+     * @param cardHeight               height of card in collapsed state
+     * @param cardHeaderExpandedHeight height of card header in expanded state
+     */
     public void setAttributes(int cardWidth, int cardHeight, int cardHeaderExpandedHeight) {
         this.cardWidth = cardWidth;
         this.cardHeight = cardHeight;
@@ -204,6 +221,11 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         this.pager.updateLayoutDimensions(cardWidth, cardHeight);
     }
 
+    /**
+     * Set {@link OnCardSelectedListener} to pager view.
+     *
+     * @param listener
+     */
     public void setOnCardSelectedListener(OnCardSelectedListener listener) {
         this.onCardSelectedListener = listener;
         if (listener == null) return;
@@ -224,18 +246,36 @@ public class ECPagerView extends FrameLayout implements ViewPager.OnPageChangeLi
         return cardHeaderExpandedHeight;
     }
 
+    /**
+     * Start expand animation for currently active card.
+     *
+     * @return true if animation started
+     */
     public boolean expand() {
         return pager.expand();
     }
 
+    /**
+     * Start collapse animation for currently active card.
+     *
+     * @return true if animation started
+     */
     public boolean collapse() {
         return pager.collapse();
     }
 
+    /**
+     * Toggle state of currently active card - collapse if card is expanded and otherwise
+     *
+     * @return true if animation started
+     */
     public boolean toggle() {
         return pager.toggle();
     }
 
+    /**
+     * Listener will be notified when pager select a new card
+     */
     public interface OnCardSelectedListener {
         void cardSelected(int newPosition, int oldPosition, int totalElements);
     }

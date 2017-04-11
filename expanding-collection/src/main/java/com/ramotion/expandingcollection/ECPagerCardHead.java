@@ -44,7 +44,6 @@ public class ECPagerCardHead extends FrameLayout {
         headBackgroundImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.MATCH_PARENT);
         headBackgroundImageView.setLayoutParams(params);
-
         this.addView(headBackgroundImageView);
     }
 

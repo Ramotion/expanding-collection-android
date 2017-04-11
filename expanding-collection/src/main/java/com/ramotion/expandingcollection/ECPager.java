@@ -117,16 +117,31 @@ public class ECPager extends ViewPager {
         super.onPageScrolled(position, offset, offsetPixels);
     }
 
+    /**
+     * Start expand animation for currently active card.
+     *
+     * @return true if animation started
+     */
     public boolean expand() {
         ECPagerViewAdapter adapter = (ECPagerViewAdapter) getAdapter();
         return adapter.getActiveCard().expand();
     }
 
+    /**
+     * Start collapse animation for currently active card.
+     *
+     * @return true if animation started
+     */
     public boolean collapse() {
         ECPagerViewAdapter adapter = (ECPagerViewAdapter) getAdapter();
         return adapter.getActiveCard().collapse();
     }
 
+    /**
+     * Toggle state of currently active card - collapse if card is expanded and otherwise
+     *
+     * @return true if animation started
+     */
     public boolean toggle() {
         ECPagerViewAdapter adapter = (ECPagerViewAdapter) getAdapter();
         return adapter.getActiveCard().toggle();

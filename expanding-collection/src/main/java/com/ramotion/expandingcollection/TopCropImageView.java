@@ -5,6 +5,9 @@ import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
+/**
+ * Image View with custom content crop logic.
+ */
 public class TopCropImageView extends android.support.v7.widget.AppCompatImageView {
     public TopCropImageView(Context context) {
         super(context);
