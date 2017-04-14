@@ -16,7 +16,7 @@ We specialize in the designing and coding of custom UI for Mobile Apps and Websi
 
 ## Installation
 ​
-Just download the package from [here](http://central.maven.org/maven2/com/ramotion/foldingcell/folding-cell/1.1.0/folding-cell-1.1.0.aar) and add it to your project classpath, or just use the maven repo:
+maven repo:
 
 Gradle:
 ```groovy
