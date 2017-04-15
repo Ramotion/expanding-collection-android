@@ -11,7 +11,7 @@ We specialize in the designing and coding of custom UI for Mobile Apps and Websi
 
 ![Animation](./preview.gif)
 
-The [Android mockup](https://store.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-android) available [here](https://store.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-android).
+The [Android mockup](https://store.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-android) available [here](https://store.ramotion.com/product/htc-one-a9-mockups?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-android).
 
 ## Requirements
 ​
