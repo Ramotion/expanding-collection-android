@@ -1,11 +1,15 @@
+[![header](./header.png)](https://business.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-android-logo)
+
 # ExpandingCollection for Android
+[![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
 
 ## About
-The project is maintained by [app development agency](https://ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=foolding-cell-android) [Ramotion Inc.](https://ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=foolding-cell-android)
-See our other [open-source projects](https://github.com/ramotion) or [hire](https://ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=foolding-cell-android) us to design, develop, and grow your product.
-​
-[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=https://github.com/ramotion/foolding-cell-android)
-[![Twitter Follow](https://img.shields.io/twitter/follow/ramotion.svg?style=social)](https://twitter.com/ramotion)
+This project is maintained by Ramotion, Inc.<br>
+We specialize in the designing and coding of custom UI for Mobile Apps and Websites.<br><br>**Looking for developers for your project?** 
+
+<a href="https://business.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-andrpoid-contact-us/#Get_in_Touch" > <img src="https://github.com/Ramotion/navigation-stack/raw/master/contact_our_team@2x.png" width="150" height="30"></a>
+
+![Animation](./preview.gif)
 
 ## Requirements
 ​
@@ -14,7 +18,7 @@ See our other [open-source projects](https://github.com/ramotion) or [hire](http
 
 ## Installation
 ​
-Just download the package from [here](http://central.maven.org/maven2/com/ramotion/foldingcell/folding-cell/1.1.0/folding-cell-1.1.0.aar) and add it to your project classpath, or just use the maven repo:
+maven repo:
 
 Gradle:
 ```groovy
@@ -221,3 +225,8 @@ You can find this and other, more complex, examples in this repository ​
 ​
 Expanding Collection is released under the MIT license.
 See [LICENSE](./LICENSE.md) for details.
+
+## Follow us
+
+[![Twitter URL](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=https://github.com/ramotion/expanding-collection-android)
+[![Twitter Follow](https://img.shields.io/twitter/follow/ramotion.svg?style=social)](https://twitter.com/ramotion)
