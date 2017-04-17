@@ -174,7 +174,7 @@ public class MainActivity extends Activity {
        // Generate example dataset
        List<ECCardData> dataset = CardDataImpl.generateExampleData();
 
-       // Implement and pager adapter and set it to pager view
+       // Implement pager adapter and attach it to pager view
        ecPagerView.setPagerViewAdapter(new ECPagerViewAdapter(getApplicationContext(), dataset) {
            @Override
            public void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ListView list, ECCardData data) {
@@ -194,7 +194,7 @@ public class MainActivity extends Activity {
                layoutParams.gravity = Gravity.CENTER;
                head.addView(cardTitle, layoutParams);
 
-               // Card toggling by click on head element view
+               // Card toggling by click on head element
                head.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(final View v) {
