@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,13 +44,23 @@ public class CommentArrayAdapter extends ECCardContentListItemAdapter<Comment> {
             viewHolder = (ViewHolder) rowView.getTag();
         }
 
-        Comment objectItem = getItem(position);
+        final Comment objectItem = getItem(position);
         if (objectItem != null) {
             viewHolder.line1.setText(objectItem.getCommentPersonName() + ":");
             viewHolder.line2.setText(objectItem.getCommentText());
             viewHolder.date.setText(objectItem.getCommentDate());
             viewHolder.icon.setImageResource(objectItem.getCommentPersonPictureRes());
         }
+
+        // Removing item by tap on comment icon
+//        viewHolder.icon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CommentArrayAdapter.this.remove(objectItem);
+//                CommentArrayAdapter.this.notifyDataSetChanged();
+//            }
+//        });
+
         return rowView;
     }
 

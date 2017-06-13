@@ -36,15 +36,17 @@ public class MainActivity extends Activity {
         // Generate example dataset
         List<ECCardData> dataset = CardDataImpl.generateExampleData();
 
-        // Implement and pager adapter and set it to pager view
-        ecPagerView.setPagerViewAdapter(new ECPagerViewAdapter(getApplicationContext(), dataset) {
+        // Implement pager adapter and attach it to pager view
+        ECPagerViewAdapter ecPagerViewAdapter = new ECPagerViewAdapter(getApplicationContext(), dataset) {
             @Override
-            public void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ListView list, ECCardData data) {
+            public void instantiateCard(LayoutInflater inflaterService, ViewGroup head, final ListView list, ECCardData data) {
                 // Data object for current card
                 CardDataImpl cardData = (CardDataImpl) data;
 
                 // Set adapter and items to current card content list
-                list.setAdapter(new CardListItemAdapter(getApplicationContext(), cardData.getListItems()));
+                final List<String> listItems = cardData.getListItems();
+                final CardListItemAdapter listItemAdapter = new CardListItemAdapter(getApplicationContext(), listItems);
+                list.setAdapter(listItemAdapter);
                 // Also some visual tuning can be done here
                 list.setBackgroundColor(Color.WHITE);
 
@@ -56,7 +58,7 @@ public class MainActivity extends Activity {
                 layoutParams.gravity = Gravity.CENTER;
                 head.addView(cardTitle, layoutParams);
 
-                // Card toggling by click on head element view
+                // Card toggling by click on head element
                 head.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
@@ -64,10 +66,15 @@ public class MainActivity extends Activity {
                     }
                 });
             }
-        });
+        };
+        ecPagerView.setPagerViewAdapter(ecPagerViewAdapter);
 
         // Add background switcher to pager view
         ecPagerView.setBackgroundSwitcherView((ECBackgroundSwitcherView) findViewById(R.id.ec_bg_switcher_element));
+
+        // Directly modifying dataset
+        dataset.remove(2);
+        ecPagerViewAdapter.notifyDataSetChanged();
 
     }
 

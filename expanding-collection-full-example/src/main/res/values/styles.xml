@@ -42,14 +42,15 @@
     </style>
 
     <style name="positionIndicator">
-        <item name="android:textColor">#caffffff</item>
+        <item name="android:textColor">#8cffffff</item>
         <item name="android:textSize">66sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:typeface">normal</item>
     </style>
 
     <style name="positionIndicatorCurrent" parent="positionIndicator">
-        <item name="android:textColor">#da7c80b8</item>
+        <!--<item name="android:textColor">#da7c80b8</item>-->
+        <item name="android:textColor">#ffffff</item>
     </style>
 
 </resources>
