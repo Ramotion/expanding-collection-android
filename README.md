@@ -6,7 +6,7 @@
 [![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
 
 # Check this library on other platforms:
-<a href="https://github.com/Ramotion/expanding-collection-android"> 
+<a href="https://github.com/Ramotion/expanding-collection"> 
 <img src="https://github.com/ramotion/navigation-stack/raw/master/Swift@2x.png" width="178" height="81"></a>
 
 **Looking for developers for your project?**<br>
