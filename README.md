@@ -4,6 +4,7 @@
 
 # ExpandingCollection for Android
 [![Twitter](https://img.shields.io/badge/Twitter-@Ramotion-blue.svg?style=flat)](http://twitter.com/Ramotion)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://paypal.me/Ramotion)
 
 # Check this library on other platforms:
 <a href="https://github.com/Ramotion/expanding-collection"> 
