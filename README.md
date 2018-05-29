@@ -1,5 +1,6 @@
 ![header](./header.png)
-![Animation](./preview.gif)
+<img src="https://github.com/Ramotion/expanding-collection-android/blob/master/preview.gif" width="600" height="450" />
+<br><br/>
 
 
 # ExpandingCollection for Android
@@ -18,7 +19,7 @@ This project is maintained by Ramotion, Inc. We specialize in the designing and 
 
 
 
-The [Android mockup](https://store.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-android) available [here](https://store.ramotion.com/product/htc-one-a9-mockups?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-android).
+The [Android mockup](https://store.ramotion.com/product/htc-one-a9-mockup?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-android) available [here](https://store.ramotion.com?utm_source=gthb&utm_medium=special&utm_campaign=expanding-collection-android).
 
 ## Requirements
 ​
