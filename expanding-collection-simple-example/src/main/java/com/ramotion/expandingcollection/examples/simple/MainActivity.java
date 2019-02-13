@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.ramotion.expandingcollection.ECBackgroundSwitcherView;
 import com.ramotion.expandingcollection.ECCardData;
-import com.ramotion.expandingcollection.ECPagerCardContentList;
 import com.ramotion.expandingcollection.ECPagerView;
 import com.ramotion.expandingcollection.ECPagerViewAdapter;
 

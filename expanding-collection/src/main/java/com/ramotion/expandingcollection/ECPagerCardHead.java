@@ -4,16 +4,15 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import ramotion.com.expandingcollection.R;
+import androidx.annotation.DrawableRes;
+
 
 /**
  * View used to be a card head that is visible when card is collapsed. Just frame layout with background image

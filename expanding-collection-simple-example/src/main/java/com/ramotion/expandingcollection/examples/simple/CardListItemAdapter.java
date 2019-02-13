@@ -1,20 +1,18 @@
 package com.ramotion.expandingcollection.examples.simple;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ramotion.expandingcollection.ECCardContentListItemAdapter;
 
 import java.util.List;
-import java.util.Random;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 public class CardListItemAdapter extends ECCardContentListItemAdapter<String> {
 

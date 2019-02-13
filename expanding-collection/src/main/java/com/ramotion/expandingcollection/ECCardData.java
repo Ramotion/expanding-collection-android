@@ -1,8 +1,9 @@
 package com.ramotion.expandingcollection;
 
-import android.support.annotation.DrawableRes;
 
 import java.util.List;
+
+import androidx.annotation.DrawableRes;
 
 /**
  * Implement this interface to provide data to pager view and content list inside pager card
