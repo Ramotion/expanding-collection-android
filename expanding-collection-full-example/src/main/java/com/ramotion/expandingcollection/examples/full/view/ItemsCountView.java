@@ -3,7 +3,6 @@ package com.ramotion.expandingcollection.examples.full.view;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -16,6 +15,8 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import com.ramotion.expandingcollection.examples.full.R;
+
+import androidx.annotation.Nullable;
 
 public class ItemsCountView extends LinearLayout {
 

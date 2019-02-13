@@ -1,9 +1,7 @@
 package com.ramotion.expandingcollection;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import androidx.viewpager.widget.PagerAdapter;
 import ramotion.com.expandingcollection.R;
 
 import static android.R.attr.bitmap;

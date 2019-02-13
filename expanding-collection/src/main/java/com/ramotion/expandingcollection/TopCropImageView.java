@@ -5,10 +5,12 @@ import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
+import androidx.appcompat.widget.AppCompatImageView;
+
 /**
  * Image View with custom content crop logic.
  */
-public class TopCropImageView extends android.support.v7.widget.AppCompatImageView {
+public class TopCropImageView extends AppCompatImageView {
     public TopCropImageView(Context context) {
         super(context);
         setScaleType(ScaleType.MATRIX);
