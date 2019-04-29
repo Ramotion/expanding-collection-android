@@ -118,19 +118,19 @@ public class ECBackgroundSwitcherView extends ImageSwitcher {
             Integer mainBgImageDrawableResource = pager.getDataFromAdapterDataset(position).getMainBackgroundResource();
             if (mainBgImageDrawableResource == null) return;
             BitmapWorkerTask addBitmapToCacheTask = new BitmapWorkerTask(getResources(), mainBgImageDrawableResource);
-            addBitmapToCacheTask.execute(position);
+            addBitmapToCacheTask.execute(mainBgImageDrawableResource);
         }
     }
 
     public void updateCurrentBackground(ECPager pager, final AnimationDirection direction) {
         int position = pager.getCurrentPosition();
         BackgroundBitmapCache instance = BackgroundBitmapCache.getInstance();
-        Bitmap cachedBitmap = instance.getBitmapFromBgMemCache(position);
+        Integer mainBgImageDrawableResource = pager.getDataFromAdapterDataset(position).getMainBackgroundResource();
+        Bitmap cachedBitmap = instance.getBitmapFromBgMemCache(mainBgImageDrawableResource);
         if (cachedBitmap == null) {
-            Integer mainBgImageDrawableResource = pager.getDataFromAdapterDataset(position).getMainBackgroundResource();
             if (mainBgImageDrawableResource == null) return;
             cachedBitmap = BitmapFactory.decodeResource(getResources(), mainBgImageDrawableResource, new BitmapFactoryOptions());
-            instance.addBitmapToBgMemoryCache(position, cachedBitmap);
+            instance.addBitmapToBgMemoryCache(mainBgImageDrawableResource, cachedBitmap);
         }
         setImageBitmapWithAnimation(cachedBitmap, direction);
     }
@@ -149,7 +149,7 @@ public class ECBackgroundSwitcherView extends ImageSwitcher {
                 setImageBitmapWithAnimation(bitmap, direction);
             }
         };
-        mCurrentAnimationTask.execute(position);
+        mCurrentAnimationTask.execute(mainBgImageDrawableResource);
     }
 
 
