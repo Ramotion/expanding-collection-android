@@ -39,18 +39,18 @@ maven repo:
 
 Gradle:
 ```groovy
-'com.ramotion.expandingcollection:expanding-collection:0.9.1'
+'com.ramotion.expandingcollection:expanding-collection:0.9.2'
 ```
 SBT:
 ```scala
-libraryDependencies += "com.ramotion.expandingcollection" % "expanding-collection" % "0.9.1"
+libraryDependencies += "com.ramotion.expandingcollection" % "expanding-collection" % "0.9.2"
 ```
 Maven:
 ```xml
 <dependency>
 	<groupId>com.ramotion.expandingcollection</groupId>
 	<artifactId>expanding-collection</artifactId>
-	<version>0.9.1</version>
+	<version>0.9.2</version>
 </dependency>
 ```
 
